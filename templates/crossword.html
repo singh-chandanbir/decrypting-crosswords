@@ -1,0 +1,96 @@
+{% extends "header-footer.html" %}
+
+{% block head %}<link rel="stylesheet" href="{{url_for('static',filename='./style/crossword.css')}}" />
+{% endblock head %}
+{% block title %}The Playground{% endblock title%}
+{% block content %}
+
+
+
+<div class="crossword-wrapper">
+
+    <div class="crossword-division">
+        <fieldset>
+            <legend>Crossword</legend>
+            <form>
+                <table>
+                    <tbody>
+                        {% for i in range(clue_data.dimensions.cols)%}
+                        <tr>
+                            {% for j in range(clue_data.dimensions.rows)%}
+
+                            <td id="cell{{j}}-{{i}}" class="cell">
+                                {% for item in clue_data.entries %} {% if ( item.position.x == j)
+                                and ( item.position.y == i) %}
+                                <span id="text{{j}}-{{i}}" class="text"> {{item.number}} </span>
+                                {% endif %} {% endfor %}
+
+                                <input id="input{{j}}-{{i}}" class="inputbox" type="text" maxlength="1" />
+                            </td>
+
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </form>
+            <button>hello</button>
+            <button>hello</button>
+            <button>hello</button>
+            <button>hello</button>
+
+        </fieldset>
+    </div>
+
+    <div class="clue">
+        <div class="across-clue">
+            <h3>Across</h3>
+            <ul>
+                {%for item in clue_data.entries%} {% if item.direction == 'across' %}
+
+                <li>
+                    <div class="{{item.id}}" tabindex="1">
+                        <a href="#{{item.id}}">
+                            <span>{{item.number}}:</span>
+                            <span>{{item.clue}}</span>
+                        </a>
+                    </div>
+                </li>
+                {% endif %} {%endfor%}
+            </ul>
+        </div>
+
+
+
+        <div class="down-clue">
+            <h3>Down</h3>
+
+            <ul>
+                {%for item in clue_data.entries%} {% if item.direction == 'down' %}
+
+                <li>
+                    <a href="#{{item.id}}">
+                        <span>{{item.number}}:</span>
+                        <span>{{item.clue}}</span>
+                    </a>
+                </li>
+                {% endif %} {%endfor%}
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var myList = {{ blocked_cell_list| tojson | safe}};
+
+    for (var i = 0; i < myList.length; i++) {
+        document.getElementById(myList[i]).disabled = true;
+        document.getElementById(myList[i]).closest('td').style.backgroundColor = "black";
+    }
+</script>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script src="{{url_for('static',filename='./working/crossword.js')}}"></script>
+
+{% endblock content %}

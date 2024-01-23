@@ -1,0 +1,43 @@
+{% extends "header-footer.html" %}
+
+{% block head %} <link rel="stylesheet" href="{{url_for('static', filename='./style/index.css')}}">{% endblock %}
+
+{% block title %}Decoding Crosswords{% endblock %}
+
+
+{% block content %}
+
+
+   
+
+    <div class="body-wrapper">
+
+        <div class="body-left-division">
+
+
+            <h1>Decoding Crosswords</h1>
+            <h2>Semantic Wordplay using NLP Techniques</h2>
+
+            <div class="button-division">
+                <a id='trynow' href="{{url_for('veiw_crossword', page_number='1')}}">TRY NOW</a>
+                <a href="{{url_for('badlink')}}">ABOUT PROJECT</a>
+            </div>
+
+        </div>
+
+        <div class="body-right-division">
+
+
+            <img id="hero" class='floating' src="{{url_for('static', filename='./assets/images/the_hero_crossbot.png')}}" alt="">
+            <img src="{{url_for('static', filename='./assets/images/the_bg_shape.png')}}" alt="">
+
+
+
+        </div>
+    </div>
+
+    {% endblock content %}
+
+
+
+

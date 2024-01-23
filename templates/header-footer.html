@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- <link rel="stylesheet" href="{{ url_for('static',filename='./style/header.css') }}"> -->
+    <link rel="stylesheet" href="{{url_for('static', filename='./style/header.css')}}">
+    <link rel="shortcut icon" href="{{url_for('static', filename='./assets/images/favicon.png')}}" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    {% block head %}{% endblock %}
+
+
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+
+
+
+    <nav>
+       
+            <div class="nav-left-division">
+                <ul>
+                    <li><a href="{{url_for('homepage')}}">HOME</a></li>
+                     <li><a href="{{url_for('badlink')}}">SYNOPSIS</a></li>
+                     <li><a href="{{url_for('badlink')}}">ABOUT US</a></li>
+                    <li><a href="{{url_for('badlink')}}">CONTACT US</a></li>
+                   
+                </ul>
+            </div>
+
+            <!-- Remove the nav li styling when adding nav-right-division  -->
+
+            <!-- <div class="nav-right-division">
+                <ul>
+                    <li><a href="{{url_for('badlink')}}">LOGIN</a></li>
+                    <li><button><img src="{{url_for('static', filename='./assets/images/menu_icon.png')}}" height="20px"></button></li>
+                </ul>
+
+            </div> -->
+     
+
+
+    </nav>
+
+    {% block content %}{% endblock content %}
+
+
+    <footer>
+        <p>Developed with love &#9829; by The Reseachers</p>
+    </footer>
+
+</body>
+
+</html>

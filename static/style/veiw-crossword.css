@@ -1,0 +1,20 @@
+.card{
+    width: 300px;
+    border: 3px solid black;
+    margin: 50px;
+    box-sizing: content-box;
+    border-radius: 5px;
+    background-color: beige;
+
+}
+.card span{
+
+    font-size: 19px;
+}
+.card img{
+    width: 300px;
+}
+.select_crossword{
+    display: flex;
+    flex-wrap: wrap;
+}

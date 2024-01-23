@@ -1,0 +1,55 @@
+{% extends "header-footer.html" %}
+{% block head %}  <link rel="stylesheet" href="{{url_for('static', filename='./style/veiw-crossword.css')}}">{% endblock head %}
+{% block title %}Crossword{% endblock title %}
+{% block content %}
+
+<div class="cards-wrapper">
+
+
+    {% set start_crossID, endcross_ID = 10746 ,10755 %}
+
+    <form action="/crossword" method="POST" class = "select_crossword">
+
+
+        {#  {% for cross_id  in range(10746,16746) %} #}
+
+       {% for cross_id  in objects %}
+
+            <div class="card">
+                <button name="crossword-id" type="submit"  value="{{cross_id}}">
+                    <img src="{{url_for('static', filename='./puzzles/svgs/' + cross_id|string + '.svg')}}" alt="">
+                    <span>CROSSWORD #{{cross_id}}</span>
+                </button>
+
+            </div>
+        {% endfor %}
+
+
+
+
+    </form>
+
+
+    <div class="button-wrapper">
+
+        <div>
+            {% if page_number > 1 %}
+                <a href="{{ url_for('veiw_crossword', page_number=page_number-1) }}">Previous</a>
+            {% endif %}
+            
+            Page {{ page_number }}
+        
+            {% if page_number < total_pages %}
+                <a href="{{ url_for('veiw_crossword', page_number=page_number+1) }}">Next</a>
+            {% endif %}
+        </div>
+    </div>
+
+
+
+
+
+
+</div>
+
+{% endblock content %}

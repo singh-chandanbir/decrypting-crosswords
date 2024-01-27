@@ -48,4 +48,11 @@ def crossword():
 def badlink():
     return rt('pagenotfound.html')
 
+@app.route('/login')
+def login():
+    return rt('login.html')
+@app.route('/login')
+def signin():
+    return rt('login.html')
+
 app.run( debug=True ,port=8080)

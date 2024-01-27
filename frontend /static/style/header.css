@@ -67,7 +67,7 @@ nav a:visited {
 
 
 
-nav a::before {
+/* nav a::before {
     content: "";
     position: absolute;
     display: block;
@@ -82,7 +82,7 @@ nav a::before {
 
 nav a:hover::before {
     transform: scaleX(1);
-}
+} */
 
 footer {
 
@@ -102,8 +102,8 @@ footer p{
 
 /* remove this when adding the right nav division */
 
-nav ul {
+/* nav ul {
     width: 100vw;
     display: flex;
     justify-content: space-around;
-}
+} */

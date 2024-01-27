@@ -1,9 +1,7 @@
-h3{
-    font-family: var(--primary-font);
-    color: var(--primary-color);
-    font-size: 50px;
-    text-align: center;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 
 @font-face {
     font-family: 'gliker-bold';

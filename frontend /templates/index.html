@@ -1,6 +1,7 @@
 {% extends "header-footer.html" %}
 
-{% block head %} <link rel="stylesheet" href="{{url_for('static', filename='./style/index.css')}}">{% endblock %}
+<!-- {% block head %}
+<link rel="stylesheet" href="{{url_for('static', filename='./style/index.css')}}">{% endblock %} -->
 
 {% block title %}Decoding Crosswords{% endblock %}
 
@@ -8,36 +9,62 @@
 {% block content %}
 
 
-   
-
-    <div class="body-wrapper">
-
-        <div class="body-left-division">
+<section class=" dark:bg-slate-900">
 
 
-            <h1>Decoding Crosswords</h1>
-            <h2>Semantic Wordplay using NLP Techniques</h2>
-
-            <div class="button-division">
-                <a id='trynow' href="{{url_for('veiw_crossword', page_number='1')}}">TRY NOW</a>
-                <a href="{{url_for('badlink')}}">ABOUT PROJECT</a>
+    <div class="container mx-auto flex  md:justify-center  px-5 md:flex-row flex-col items-center">
+        <div class="lg:flex-grow md:w-1/2 flex flex-col md:items-center md:text-left mb-16 md:mb-0 items-center justify-center text-center content-center">
+            <h1 class="font-Gliker  text-center text-5xl md:text-7xl mb-4 font-medium text-blue">Decoding <br> Crosswords</h1>
+            <p class="mb-8 dark:text-white leading-relaxed text-center">Semantic Wordplay using NLP Techniques</p>
+            <div class="flex justify-center">
+                <button
+                    class="inline-flex text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded text-lg">Button</button>
+                <button
+                    class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">Button</button>
             </div>
-
         </div>
 
-        <div class="body-right-division">
 
-
-            <img id="hero" class='floating' src="{{url_for('static', filename='./assets/images/the_hero_crossbot.png')}}" alt="">
-            <img src="{{url_for('static', filename='./assets/images/the_bg_shape.png')}}" alt="">
-
-
-
+        <div class="lg:max-w-lg lg:w-full md:w-1/2  w-5/6 relative flex justify-center">
+            <img class="object-cover object-center absolute w-3/4 rounded sm:top-14 sm:left-24 md:top-12 md:left-16 lg:top-16 lg:left-24" alt="hero" src="{{url_for('static', filename='./assets/images/the_hero_crossbot.png')}}">
+            <img class="object-cover object-center  w-2/3 rounded" alt="hero" src="{{url_for('static', filename='./assets/images/the_bg_shape.png')}}">
         </div>
+        
+
+
+
+    </div>
+</section>
+
+
+
+
+
+<!-- <div class=" ">
+
+    <div class="">
+
+
+        <h1>Decoding Crosswords</h1>
+        <h2>Semantic Wordplay using NLP Techniques</h2>
+
+        <div class="">
+            <a id='' href="{{url_for('veiw_crossword', page_number='1')}}">TRY NOW</a>
+            <a href="{{url_for('badlink')}}">ABOUT PROJECT</a>
+        </div>
+
     </div>
 
-    {% endblock content %}
+    <div class="">
+
+
+        <img id="hero" class='floating' src="{{url_for('static', filename='./assets/images/the_hero_crossbot.png')}}"
+            alt="">
+        <img src="{{url_for('static', filename='./assets/images/the_bg_shape.png')}}" alt="">
 
 
 
+    </div>
+</div> -->
 
+{% endblock content %}

@@ -1,7 +1,10 @@
 import json
 
 
-base_path='./static/puzzles/json/quick'
+
+
+base_path='../../data/puzzles/json/quick'
+
 
  
 def open_cells(crosswordid):

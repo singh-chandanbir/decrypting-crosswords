@@ -12,20 +12,7 @@
     border-spacing: 0px
 }
 
-.crossword-division fieldset {
-    border-width: 2px;
-    border-style: groove;
-    border-image: initial;
-    border-color: rgb(192, 192, 192);
-    display: block;
-}
 
-.crossword-division legend {
-    border-width: initial;
-    border-style: none;
-    border-color: initial;
-    border-image: initial;
-}
 
 .crossword-division tbody {
     border-color: inherit;

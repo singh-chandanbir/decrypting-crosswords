@@ -2,5 +2,6 @@
 .vscode
 __pycache__/
 puzzles/
+config.json
 quick/
 puzzles1/

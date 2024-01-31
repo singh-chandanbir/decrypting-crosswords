@@ -1,26 +1,44 @@
 import json
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
 
 
 
+### read the credentials fron the config json
+with open('config.json', 'r') as c:
+    params = json.load(c)["params"]
 
-base_path='../../data/puzzles/json/quick'
+db_user = params['db_username']
+db_pass = params['db_pass']
 
 
- 
-def open_cells(crosswordid):
+### MonGo DB Stuff
+uri = "mongodb+srv://"+str(db_user)+":"+str(db_pass)+"@cluster0.ebzle64.mongodb.net/"
+client = MongoClient(uri, server_api=ServerApi('1'))
+mydb = client["crossword-solver"]
 
-    file= base_path + str(crosswordid) +'.json'
 
-    clue_file = open(file)
-    data = json.load(clue_file)
+### puzzles data and all its funtions
+puzzles = mydb["puzzles"]
 
+
+##returns the whole puzzle file
+def puzzle_data(crosswordid):
+    data = puzzles.find_one({"number": crosswordid })
+    return data
+
+
+
+##returns list of id off all the open (not disable) cell
+def open_cells(data):
+    # data = puzzle_data(crosswordid)
     list=[]
     j=0
     for i in data['entries']:
- 
-        direction = data['entries'][j]['direction']
-        length = data['entries'][j]['length']
-        position =data['entries'][j]['position']
+
+        direction = i['direction']
+        length = i['length']
+        position =i['position']
         id_name= "input" + str(position['x']) + '-' +  str(position['y'])
         if id_name not in list:
             list.append(id_name)
@@ -42,20 +60,15 @@ def open_cells(crosswordid):
                 if next_id_name not in list:
                     list.append(next_id_name)
        
-
-    clue_file.close()
-
-
-
     return list
 
 
 
-def all_cells():
+def all_cells(dimensions):
 
     all_ids=[]
-    for i in range(13):
-        for j in range(13):
+    for i in range(int(dimensions['rows'])):
+        for j in range(int(dimensions['cols'])):
             temp_id='input' + str(i) + '-' + str(j)
             if temp_id not in all_ids:
                 all_ids.append(temp_id)
@@ -63,10 +76,10 @@ def all_cells():
     return all_ids
 
 
-def  blocked_cells(crosswordid):
+def  blocked_cells(data):
 
-    all_ids=all_cells()
-    not_blocked=open_cells(crosswordid)
+    all_ids=all_cells(data['dimensions'])
+    not_blocked=open_cells(data)
 
     blocked_cell_list =[]
 
@@ -74,20 +87,4 @@ def  blocked_cells(crosswordid):
         if i not in not_blocked:
             blocked_cell_list.append(i)
 
-
     return blocked_cell_list
-
-
-
-
-def read_clue_data(crosswordid):
-    file=base_path+ str(crosswordid) +'.json'
-
-
-    clue_file = open(file)
-    clue_data = json.load(clue_file)
-    clue_file.close()
-
-    return clue_data
-
-

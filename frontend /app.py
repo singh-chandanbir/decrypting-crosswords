@@ -1,58 +1,75 @@
-import json
+
 from flask import Flask, render_template as rt, request
-
-
-from api.readdata import blocked_cells, read_clue_data
+from api.db_crud import puzzle_data,blocked_cells
 from api.pageIncreDecre import get_all_objects
 
 app=Flask(__name__)
 
+
+
+
+### all the routes
+# Indexpage 
 @app.route('/')
 def homepage():
     return rt('index.html')
+# indexpage
+
+# veiwcrossword
 @app.route('/veiw_crosswords/<int:page_number>' )
 def veiw_crossword(page_number):
-
     all_objects = get_all_objects()  # Replace with your list of 100 objects
+    # print(all_objects)
     start_index = (page_number - 1) * 9
     end_index = start_index + 9
     objects_to_display = all_objects[start_index:end_index]
-
 
     total_objects = len(all_objects)
     objects_per_page = 9
     total_pages, remainder = divmod(total_objects, objects_per_page)
     if remainder > 0:
         total_pages += 1
+        
+    return rt('veiw-crossword.html', objects=objects_to_display, page_number=page_number , total_pages =total_pages )
+# veiwcrossword
 
-
-   
-    # current_list=[10746,10764,1]
-    return rt('veiw-crossword.html', objects=objects_to_display,page_number=page_number , total_pages =total_pages )
-
+# test header 
 @app.route('/header')
 def header():
     return rt('header-footer.html')
+# test header 
 
+# the play crossword page 
 @app.route('/crossword', methods = ["POST", "GET"])
 def crossword():
     if (request.method == "POST"):
-        crosswordid = request.form.get("crossword-id")
-        blocked_cell_list = blocked_cells(crosswordid)
-        clue_data=read_clue_data(crosswordid)
+        crosswordid = int(request.form.get("crossword-id"))
+        clue_data=puzzle_data(crosswordid)
+        blocked_cell_list = blocked_cells(clue_data)
 
     return rt('crossword.html',  blocked_cell_list= blocked_cell_list ,clue_data=clue_data)
+# the play crossword page 
 
-
-@app.route('/pagenotfound')
-def badlink():
-    return rt('pagenotfound.html')
-
+# login
 @app.route('/login')
 def login():
     return rt('login.html')
-@app.route('/login')
+
+# signup
+@app.route('/signup')
 def signin():
-    return rt('login.html')
+    return rt('signup.html')
+
+# all the errors goes here 
+@app.errorhandler(404)
+def badlink(e):
+    return rt('pagenotfound.html') , 404
+
+
+
+
+
+
+
 
 app.run( debug=True ,port=8080)

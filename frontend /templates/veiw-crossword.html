@@ -43,12 +43,12 @@
 
 
         {% if page_number > 1 %}
-        <a href="{{ url_for('veiw_crossword', page_number=page_number-1) }}">Previous</a>
+        <a class=" text-blue text-gr dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800" href="{{ url_for('veiw_crossword', page_number=page_number-1) }}">Previous</a>
         {% endif %}
 
-        <span>Page {{ page_number }}</span>
+        <span class=" text-blue text-gr dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Page {{ page_number }}</span>
 
-        {% if page_number < total_pages %} <a href="{{ url_for('veiw_crossword', page_number=page_number+1) }}">
+        {% if page_number < total_pages %} <a class=" text-blue text-gr dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800" href="{{ url_for('veiw_crossword', page_number=page_number+1) }}">
             Next</a>
             {% endif %}
 

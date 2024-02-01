@@ -1,7 +1,7 @@
 {% extends "header-footer.html" %}
 
-<!-- {% block head %}
-<link rel="stylesheet" href="{{url_for('static', filename='./style/index.css')}}">{% endblock %} -->
+{% block head %}<!-- 
+<link rel="stylesheet" href="{{url_for('static', filename='./style/index.css')}}"> -->{% endblock %}
 
 {% block title %}Decoding Crosswords{% endblock %}
 
@@ -20,25 +20,26 @@
             <p class="mb-8 dark:text-white leading-relaxed text-center">Semantic Wordplay using NLP Techniques</p>
             <div class="flex justify-center">
 
-                <a  href="{{url_for('veiw_crossword', page_number='1')}}"
-                    class="inline-flex text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded text-lg">Try now</a>
-                <a  href="/docs"
-                    class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">docs</a>
+                <a href="{{url_for('veiw_crossword', page_number='1')}}"
+                    class="ml-4 inline-flex text-bg bg-blue border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 hover:text-blue rounded text-lg">Try
+                    now</a>
+                <a href="/docs"
+                    class="inline-flex text-black dark:text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 hover:text-blue rounded text-lg">docs</a>
             </div>
         </div>
 
 
-        <div class="lg:max-w-lg lg:w-full md:w-1/2  w-5/6 relative flex justify-center">
-            <img class="object-cover animate-floating floating object-center absolute w-3/4 rounded sm:top-14 sm:left-24 md:top-12 md:left-16 lg:top-16 lg:left-24"
-                alt="hero" src="{{url_for('static', filename='./assets/images/the_hero_crossbot.png')}}">
-            <img class="object-cover object-center  w-2/3 rounded" alt="hero"
-                src="{{url_for('static', filename='./assets/images/the_bg_shape.png')}}">
+        <div class=" lg:max-w-lg lg:w-full md:w-1/2 w-5/6 relative flex justify-center">
+                    <img class="object-cover animate-floating floating object-center absolute w-3/4 rounded sm:top-14 sm:left-24 md:top-12 md:left-16 lg:top-16 lg:left-24"
+                        alt="hero" src="{{url_for('static', filename='./assets/images/the_hero_crossbot.png')}}">
+                    <img class="object-cover object-center  w-2/3 rounded" alt="hero"
+                        src="{{url_for('static', filename='./assets/images/the_bg_shape.png')}}">
+            </div>
+
+
+
+
         </div>
-
-
-
-
-    </div>
 </section>
 
 

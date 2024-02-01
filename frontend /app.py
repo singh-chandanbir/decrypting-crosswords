@@ -59,6 +59,23 @@ def login():
 @app.route('/signup')
 def signin():
     return rt('signup.html')
+# synopsis
+@app.route('/synopsis')
+def synopsis():
+    return rt('synopsis.html')
+
+
+@app.route('/contact-us')
+def contact_us():
+    return rt('contact-us.html')
+
+@app.route('/about-us')
+def about_us():
+    return rt('about-us.html')
+
+
+
+
 
 # all the errors goes here 
 @app.errorhandler(404)

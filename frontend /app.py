@@ -1,12 +1,71 @@
 
-from flask import Flask, render_template as rt, request
-from api.db_crud import puzzle_data,blocked_cells
+from flask import Flask, render_template as rt, request ,flash ,redirect
+from api.db_crud import puzzle_data,blocked_cells , alreadyExit, addUser,userData
+from formClasses import signupForm, loginForm
 from api.pageIncreDecre import get_all_objects
+from flask_login import UserMixin, login_user,LoginManager ,login_required, logout_user ,current_user
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app=Flask(__name__)
 
+app.config['SECRET_KEY'] = "my super secret key that no one is supposed to know"
 
 
+# Flask_Login Stuff
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+
+@login_manager.user_loader
+def load_user(email):
+    data= userData(email)
+    user_object = User( username=data['userNmae'],email=data['email'], pass_hash=data['pass_hash'] )
+    return user_object
+
+
+# class User:
+#     def __init__(self, username):
+#         self.username = username
+
+#     @staticmethod
+#     def is_authenticated():
+#         return True
+
+#     @staticmethod
+#     def is_active():
+#         return True
+
+#     @staticmethod
+#     def is_anonymous():
+#         return False
+
+#     def get_id(self):
+#         return self.username
+
+#     @staticmethod
+#     def check_password(password_hash, password):
+#         return check_password_hash(password_hash, password)
+
+
+# @login.user_loader
+# def load_user(username):
+#     u = mongo.db.Users.find_one({"Name": username})
+#     if not u:
+#         return None
+#     return User(username=u['Name'])
+
+
+
+class User(UserMixin):
+    def __init__(self, username, email,pass_hash):
+        # self.id = user_id
+        self.username = username
+        self.email= email
+        self.pass_hash =pass_hash
+        # self.is_active = is_active
+
+    def get_id(self):
+        return self.email
 
 ### all the routes
 # Indexpage 
@@ -18,8 +77,7 @@ def homepage():
 # veiwcrossword
 @app.route('/veiw_crosswords/<int:page_number>' )
 def veiw_crossword(page_number):
-    all_objects = get_all_objects()  # Replace with your list of 100 objects
-    # print(all_objects)
+    all_objects = get_all_objects() 
     start_index = (page_number - 1) * 9
     end_index = start_index + 9
     objects_to_display = all_objects[start_index:end_index]
@@ -51,19 +109,63 @@ def crossword():
 # the play crossword page 
 
 # login
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    return rt('login.html')
+    form=loginForm()
+    print(form.errors)
+    if form.validate_on_submit():
+        if (alreadyExit(form.email.data)):
+            data = userData(form.email.data)
+            if (check_password_hash(data['pass_hash'],form.password.data)):
+                user_object = User( username=data['userNmae'],email=data['email'], pass_hash=data['pass_hash'] )
+                login_user(user_object)
+                flash("Login Succesfull!!")
+                return redirect('/dashbord')
+            else:
+                flash('Incorrect login credentials')
+        else:
+            flash('user doest exist try again')
+    print(form.errors)
+    
+
+    return rt('login.html' , form = form )
+
+
+
+
 
 # signup
-@app.route('/signup')
+@app.route('/signup', methods=['GET', 'POST'])
 def signin():
-    return rt('signup.html')
+
+    form = signupForm()
+    if form.validate_on_submit():
+        print('form validate')
+
+        if (alreadyExit(form.email.data)):
+            flash("This email is already in use")
+            return rt('signup.html', form=form)
+        else:
+            print("This name is already in use")
+            hash_pass =  generate_password_hash(form.password.data, method='scrypt')
+            addUser( form.userName.data, form.email.data , hash_pass )
+            flash('sighup scuss')
+            return redirect('/login')
+
+    return rt('signup.html' , form=form)
+
+
+@app.route('/logout', methods=['GET', 'POST'])
+@login_required
+def logout():
+	logout_user()
+	flash("You Have Been Logged Out!  Thanks For Stopping By...")
+	return redirect(('/login'))
+
 # synopsis
 @app.route('/synopsis')
 def synopsis():
     return rt('synopsis.html')
-
 
 @app.route('/contact-us')
 def contact_us():
@@ -72,6 +174,16 @@ def contact_us():
 @app.route('/about-us')
 def about_us():
     return rt('about-us.html')
+
+@app.route('/thesecrate')
+def hiddenpage():
+    return rt('crossword-new.html')
+
+
+@app.route('/dashbord')
+@login_required
+def dashbord():
+    return rt('dashbord.html')
 
 
 
@@ -89,4 +201,10 @@ def badlink(e):
 
 
 
-app.run( debug=True ,port=8080)
+
+
+
+app.run( debug=True , host='0.0.0.0',port=8080)
+
+
+

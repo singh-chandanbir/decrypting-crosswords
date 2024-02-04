@@ -4,11 +4,7 @@ $(document).ready(function () {
     $("input").keyup(function (e) {
         if (e.which == 39) {
             // right arrow
-            $(this)
-                .closest("td")
-                .nextAll("td:not(:has(input[disabled])):first")
-                .find("input")
-                .focus();
+            $(this).closest("td").nextAll("td:not(:has(input[disabled])):first").find("input").focus();
         } else if (e.which == 37) {
             // left arrow
             $(this)
@@ -22,6 +18,10 @@ $(document).ready(function () {
             var currentIndex = $(this).closest("td").index();
             var nextRow = $(this).closest("tr").next("tr");
             var tdofnexttr = nextRow.find("td:eq(" + currentIndex + ")");
+            console.log("helo helo");
+            console.log(typeof(tdofnexttr));
+            console.log(tdofnexttr);
+
 
             while (tdofnexttr.length > 0) {
                 if (!tdofnexttr.find("input").prop("disabled")) {

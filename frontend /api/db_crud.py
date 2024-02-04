@@ -3,8 +3,7 @@ from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 
 
-
-### read the credentials fron the config json
+### read the credentials from the config json
 with open('config.json', 'r') as c:
     params = json.load(c)["params"]
 
@@ -88,3 +87,50 @@ def  blocked_cells(data):
             blocked_cell_list.append(i)
 
     return blocked_cell_list
+
+
+
+
+
+
+
+
+
+# class SignupForm(FlaskForm):
+#     userName = StringField("User Name", validators=[DataRequired()])
+#     email = EmailField("Your Email", validators=[DataRequired()])
+#     password = PasswordField("Password", validators=[DataRequired()])
+#     conPassword = PasswordField('Confirm Password', validators=[DataRequired()])
+#     submit = SubmitField("Submit")
+
+user = mydb["users"]
+
+
+
+
+
+
+def addUser( userName , email, pass_hash):
+
+    user_data = dict(userNmae = userName, email = email, pass_hash = pass_hash)
+    result = user.insert_one(user_data)
+    print(result)
+
+
+def alreadyExit(email):
+        data = user.find_one({ "email": email })
+        if data:
+            return True
+        else:
+            return False
+
+
+def userData(email):
+    data = user.find_one({ "email": email })
+    return data
+
+
+
+
+
+

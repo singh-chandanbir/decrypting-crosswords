@@ -1,7 +1,7 @@
 {% extends "header-footer.html" %}
 
 {% block head %}<!-- 
-<link rel="stylesheet" href="{{url_for('static', filename='./style/index.css')}}"> -->{% endblock %}
+<link rel="stylesheet" href="{{url_for('static', filename='./style/index.css')}}"> -->{% endblock head%}
 
 {% block title %}Decoding Crosswords{% endblock %}
 
@@ -30,7 +30,7 @@
 
 
         <div class=" lg:max-w-lg lg:w-full md:w-1/2 w-5/6 relative flex justify-center">
-                    <img class="object-cover animate-floating floating object-center absolute w-3/4 rounded sm:top-14 sm:left-24 md:top-12 md:left-16 lg:top-16 lg:left-24"
+                    <img class="object-cover animate-floating floating object-center absolute w-3/4 rounded top-6 left-12 sm:top-14 sm:left-24 md:top-12 md:left-16 lg:top-16 lg:left-24"
                         alt="hero" src="{{url_for('static', filename='./assets/images/the_hero_crossbot.png')}}">
                     <img class="object-cover object-center  w-2/3 rounded" alt="hero"
                         src="{{url_for('static', filename='./assets/images/the_bg_shape.png')}}">

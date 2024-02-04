@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static',filename='./style/dist/output.css')}}" />
 
-    <!-- <link rel="stylesheet" href="{{ url_for('static',filename='./style/header.css') }}"> -->
-    <!-- <link rel="stylesheet" href="{{url_for('static', filename='./style/header.css')}}"> -->
+
     <link rel="shortcut icon" href="{{url_for('static', filename='./assets/images/favicon.png')}}" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,7 +40,13 @@
 
             <!-- login signup button -->
             <div class="flex items-center md:order-2 space-x-1 md:space-x-2 rtl:space-x-reverse">
+                {% if current_user.is_authenticated %}
 
+                <a href="{{url_for('logout')}}"
+                class=" bg-blue text-white hover:bg focus:ring-4 focus:ring-blue font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 dark:bg-blue dark:hover:bg-blue focus:outline-none dark:focus:ring-blue">Logout</a>
+                
+
+                {% else %}
                 <!-- login -->
                 <a href="{{url_for('login')}}"
                     class=" text-blue text-gr dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Login</a>
@@ -50,6 +55,9 @@
                 <a href="{{url_for('signin')}}"
                     class=" bg-blue text-white hover:bg focus:ring-4 focus:ring-blue font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 dark:bg-blue dark:hover:bg-blue focus:outline-none dark:focus:ring-blue">Sign
                     up</a>
+
+
+                {%endif%}
 
 
                 <!-- menu button -->
@@ -107,7 +115,9 @@
     </nav>
 
 
-    {% block content %}{% endblock content %}
+    {% block content %}
+
+    {% endblock content %}
 
 
 

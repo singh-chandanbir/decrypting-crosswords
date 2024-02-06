@@ -1,6 +1,6 @@
 
 from flask import Flask, render_template as rt, request ,flash ,redirect
-from api.db_crud import puzzle_data,blocked_cells , alreadyExit, addUser,userData
+from api.db_crud import puzzle_data,blocked_cells , alreadyExit, addUser,userData, SECRET_KEY
 from formClasses import signupForm, loginForm
 from api.pageIncreDecre import get_all_objects
 from flask_login import UserMixin, login_user,LoginManager ,login_required, logout_user ,current_user
@@ -8,8 +8,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 app=Flask(__name__)
 
-app.config['SECRET_KEY'] = "my super secret key that no one is supposed to know"
-
+app.config['SECRET_KEY'] = SECRET_KEY()
 
 # Flask_Login Stuff
 login_manager = LoginManager()
@@ -76,6 +75,8 @@ def homepage():
 
 # veiwcrossword
 @app.route('/veiw_crosswords/<int:page_number>' )
+@login_required
+
 def veiw_crossword(page_number):
     all_objects = get_all_objects() 
     start_index = (page_number - 1) * 9
@@ -178,7 +179,6 @@ def about_us():
 @app.route('/thesecrate')
 def hiddenpage():
     return rt('crossword-new.html')
-
 
 @app.route('/dashbord')
 @login_required

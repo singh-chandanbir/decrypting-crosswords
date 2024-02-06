@@ -11,6 +11,10 @@ db_user = params['db_username']
 db_pass = params['db_pass']
 
 
+def SECRET_KEY():
+    Secrate=  params['app_secret_key']
+    return Secrate
+
 ### MonGo DB Stuff
 uri = "mongodb+srv://"+str(db_user)+":"+str(db_pass)+"@cluster0.ebzle64.mongodb.net/"
 client = MongoClient(uri, server_api=ServerApi('1'))

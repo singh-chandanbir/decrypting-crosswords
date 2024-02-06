@@ -150,7 +150,7 @@ def signin():
             print("This name is already in use")
             hash_pass =  generate_password_hash(form.password.data, method='scrypt')
             addUser( form.userName.data, form.email.data , hash_pass )
-            flash('sighup scuss')
+            flash('Sign in Successful')
             return redirect('/login')
 
     return rt('signup.html' , form=form)

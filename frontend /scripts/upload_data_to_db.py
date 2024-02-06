@@ -24,10 +24,7 @@ mycol = mydb["puzzles"]
 
 
 for i in range (10746, 16746):
-
     existing_document = mycol.find_one({"number": i})
-   
-
     if not existing_document:
         path = "../../data/puzzles/json/quick" + str(i)+ ".json"
         with open(path) as puzzles:

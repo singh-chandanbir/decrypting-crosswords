@@ -66,10 +66,13 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-
+let bot = document.getElementById("think")
 
 
 async function delayedLoop() {
+
+    bot.style.display = "block";
+    console.log(bot)
     for (const key in order) {
         let x = order[key][0];
         let y =  order[key][1];
@@ -81,8 +84,10 @@ async function delayedLoop() {
             document.getElementById(id).value = grid[x][y];
         
     };
+    
 
-    };           
+    };    
+    bot.style.display = "none";       
      
 }
 

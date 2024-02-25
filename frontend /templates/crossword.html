@@ -1,109 +1,116 @@
-{% extends "header-footer.html" %}
+{% extends "header-footer.html" %} {% block title %}The Playground{% endblock
+title%} {% block content %}
 
+<div class="flex justify-around flex-wrap m-5">
+  <div class="flex flex-col">
+    <div class="crossword-division bg-bg">
+      <form class="bg-yellow">
+        <table class="box-border border-gray-700 border-2 border-spacing-[0px]">
+          <tbody class="border-inherit">
+            {% for i in range(clue_data.dimensions.cols)%}
+            <tr>
+              {% for j in range(clue_data.dimensions.rows)%}
 
+              <td
+                id="cell{{j}}-{{i}}"
+                class="cell border-[1px] h-7 w-7 md:w-9 md:h-9 relative bg-transparent border-black"
+              >
+                {% for item in clue_data.entries %} {% if ( item.position.x ==
+                j) and ( item.position.y == i) %}
+                <span
+                  id="text{{j}}-{{i}}"
+                  class="text max-h-0 absolute text-[10px] text-gray-500"
+                >
+                  {{item.number}}
+                </span>
+                {% endif %} {% endfor %}
 
+                <input
+                  id="input{{j}}-{{i}}"
+                  class="inputbox w-full border-none h-full text-center bg-transparent text-lg focus-visible:outline focus-visible:outline-4 focus-visible:outline-blue foz-10 focus-visible:bg-yellow-200 focus-visible:shadow-sm m-0 relative"
+                  type="text"
+                  maxlength="1"
+                />
+              </td>
 
-{% block title %}The Playground{% endblock title%}
-{% block content %}
+              {% endfor %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </form>
+    </div>
+    <div class="text-white flex flex-row flex-wrap justify-around">
+      <!-- <button class=" py-2 px-5 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 ">Check All</button> -->
+      <button
+        id="Reveal"
+        onclick="delayedLoop()"
+        class="py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5"
+      >
+        Reveal All
+      </button>
+      <!--  <button class=" py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5">Clear All</button>-->
+    </div>
+  </div>
 
+  <div class="clue flex justify-between flex-wrap text-blue">
+    <div class="across-clue w-80 m-2">
+      <h3>Across</h3>
+      <ul class="flex flex-col justify-between">
+        {%for item in clue_data.entries%} {% if item.direction == 'across' %}
 
-
-<div class=" flex justify-around flex-wrap m-5 ">
-    <div class=" flex flex-col">
-
-        <div class="crossword-division bg-bg">
-
-            <form class="bg-yellow">
-                <table class=" box-border border-gray-700 border-2 border-spacing-[0px]">
-                    <tbody class=" border-inherit">
-                        {% for i in range(clue_data.dimensions.cols)%}
-                        <tr>
-                            {% for j in range(clue_data.dimensions.rows)%}
-
-                            <td id="cell{{j}}-{{i}}"
-                                class="cell border-[1px] h-7 w-7 md:w-9 md:h-9  relative bg-transparent border-black">
-                                {% for item in clue_data.entries %} {% if ( item.position.x == j)
-                                and ( item.position.y == i) %}
-                                <span id="text{{j}}-{{i}}" class="text max-h-0 absolute text-[10px] text-gray-500">
-                                    {{item.number}} </span>
-                                {% endif %} {% endfor %}
-
-                                <input id="input{{j}}-{{i}}"
-                                    class="inputbox w-full  border-none h-full text-center bg-transparent text-lg focus-visible:outline focus-visible:outline-4 focus-visible:outline-blue foz-10 focus-visible:bg-yellow-200 focus-visible:shadow-sm m-0 relative "
-                                    type="text" maxlength="1" />
-                            </td>
-
-                            {% endfor %}
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </form>
-
-        </div>
-        <div class="text-white flex flex-row flex-wrap justify-around ">
-           <!-- <button class=" py-2 px-5 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 ">Check All</button> -->
-            <button id="Reveal"  onclick = delayedLoop() class=" py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5">Reveal All</button>
-            <!--  <button class=" py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5">Clear All</button>-->
-
-        </div>
-
+        <li class="m-3 hover:underline">
+          <div class="{{item.id}}" tabindex="1">
+            <a href="#{{item.id}}">
+              <span>{{item.number}}:</span>
+              <span>{{item.clue}}</span>
+            </a>
+          </div>
+        </li>
+        {% endif %} {%endfor%}
+      </ul>
     </div>
 
-
-
-    <div class="clue flex justify-between  flex-wrap text-blue ">
-
-
-        <div class="across-clue w-80 m-2">
-            <h3>Across</h3>
-            <ul class=" flex flex-col justify-between">
-                {%for item in clue_data.entries%} {% if item.direction == 'across' %}
-
-                <li class=" m-3 hover:underline">
-                    <div class="{{item.id}}" tabindex="1">
-                        <a href="#{{item.id}}">
-                            <span>{{item.number}}:</span>
-                            <span>{{item.clue}}</span>
-                        </a>
-                    </div>
-                </li>
-                {% endif %} {%endfor%}
-            </ul>
-        </div>
-
-
-
-        <div class="down-clue m-2 w-80 ">
-            <h3>Down</h3>
-            <ul class=" flex flex-col justify-between">
-                {%for item in clue_data.entries%} {% if item.direction == 'down' %}
-                <li class=" mt-3 hover:underline">
-                    <a href="#{{item.id}}">
-                        <span>{{item.number}}:</span>
-                        <span>{{item.clue}}</span>
-                    </a>
-                </li>
-                {% endif %} {%endfor%}
-            </ul>
-        </div>
+    <div class="down-clue m-2 w-80">
+      <h3>Down</h3>
+      <ul class="flex flex-col justify-between">
+        {%for item in clue_data.entries%} {% if item.direction == 'down' %}
+        <li class="mt-3 hover:underline">
+          <a href="#{{item.id}}">
+            <span>{{item.number}}:</span>
+            <span>{{item.clue}}</span>
+          </a>
+        </li>
+        {% endif %} {%endfor%}
+      </ul>
     </div>
+  </div>
+</div>
+<div id="think" class="hidden">
+  <div class="absolute bottom-6 right-6 animate-floating">
+    <img
+      class="w-[50vw]"
+      src="{{url_for('static', filename = 'assets/images/think.png')}}"
+    />
+  </div>
 </div>
 
-
 <script>
-    var myList = {{ blocked_cell_list| tojson | safe}};
+  var myList = {{ blocked_cell_list| tojson | safe}};
 
-    let grid = {{grid | tojson | safe}}
-    let order = {{order | tojson | safe}}
+  let grid = {{grid | tojson | safe}}
+  let order = {{order | tojson | safe}}
 
-    for (var i = 0; i < myList.length; i++) {
-        document.getElementById(myList[i]).disabled = true;
-        document.getElementById(myList[i]).closest('td').style.backgroundColor = "black";
-    }
+  for (var i = 0; i < myList.length; i++) {
+      document.getElementById(myList[i]).disabled = true;
+      document.getElementById(myList[i]).closest('td').style.backgroundColor = "black";
+  }
 </script>
 
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script
+  type="text/javascript"
+  src="http://code.jquery.com/jquery-1.7.1.min.js"
+></script>
 <script src="{{url_for('static',filename='./working/crossword.js')}}"></script>
 
 {% endblock content %}

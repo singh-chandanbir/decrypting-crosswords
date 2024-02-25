@@ -618,6 +618,26 @@ video {
   top: 1.5rem;
 }
 
+.bottom-1 {
+  bottom: 0.25rem;
+}
+
+.bottom-4 {
+  bottom: 1rem;
+}
+
+.right-4 {
+  right: 1rem;
+}
+
+.bottom-6 {
+  bottom: 1.5rem;
+}
+
+.right-6 {
+  right: 1.5rem;
+}
+
 .m-0 {
   margin: 0px;
 }
@@ -906,6 +926,14 @@ video {
 
 .w-64 {
   width: 16rem;
+}
+
+.w-\[80vw\] {
+  width: 80vw;
+}
+
+.w-\[50vw\] {
+  width: 50vw;
 }
 
 .min-w-max {

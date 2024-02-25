@@ -1,19 +1,15 @@
 import json
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
+from dotenv import load_dotenv
 
 
-### read the credentials from the config json
-with open('config.json', 'r') as c:
-    params = json.load(c)["params"]
-
-db_user = params['db_username']
-db_pass = params['db_pass']
+import os 
+load_dotenv()
+db_user = os.getenv("DBUSER")
+db_pass = os.getenv("DBPASS")  
 
 
-def SECRET_KEY():
-    Secrate=  params['app_secret_key']
-    return Secrate
 
 ### MonGo DB Stuff
 uri = "mongodb+srv://"+str(db_user)+":"+str(db_pass)+"@cluster0.ebzle64.mongodb.net/"
@@ -22,8 +18,8 @@ mydb = client["crossword-solver"]
 
 
 ### puzzles data and all its funtions
-puzzles = mydb["puzzles"]
 
+puzzles = mydb["puzzles"]
 
 ##returns the whole puzzle file
 def puzzle_data(crosswordid):
@@ -93,7 +89,47 @@ def  blocked_cells(data):
     return blocked_cell_list
 
 
+def getgrid(clue_data):
+    grid =[["","","","","","","","","","","","",""],
+       ["","","","","","","","","","","","",""],
+       ["","","","","","","","","","","","",""],
+       ["","","","","","","","","","","","",""],
+       ["","","","","","","","","","","","",""],
+       ["","","","","","","","","","","","",""],
+       ["","","","","","","","","","","","",""],
+       ["","","","","","","","","","","","",""],
+       ["","","","","","","","","","","","",""],
+       ["","","","","","","","","","","","",""],
+       ["","","","","","","","","","","","",""],
+       ["","","","","","","","","","","","",""],
+       ["","","","","","","","","","","","",""]]
+    
+    order = []
 
+    for clue in clue_data['entries']:
+        if clue["direction"] == "across":
+            x=clue["position"]["x"] 
+            y=clue["position"]["y"]
+            for i in range(clue["length"]):
+                    positon = [x,y]
+                    order.append(positon)
+                    grid[x][y]=clue["solution"][i]
+                    x+=1
+        if clue["direction"] == "down":
+            x=clue["position"]["x"] 
+            y=clue["position"]["y"]
+            for i in range(clue["length"]):
+                    positon = [x,y]
+                    order.append(positon)
+                    grid[x][y]=clue["solution"][i]
+                    y+=1
+    
+
+    return  grid , order
+
+# grid , order = grid(puzzle_data(10746))
+# print(grid)
+# print(order)
 
 
 

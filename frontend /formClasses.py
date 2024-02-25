@@ -16,5 +16,10 @@ class loginForm(FlaskForm):
     password = PasswordField("Password", validators=[DataRequired()])
     submit = SubmitField("Login")
 
+class forgetPasswordForm(FlaskForm):
+    email = EmailField("Your Email", validators=[DataRequired()])
+    submit = SubmitField("Send Email")
+    
+
 
 

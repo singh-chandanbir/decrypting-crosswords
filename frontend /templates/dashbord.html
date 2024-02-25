@@ -6,36 +6,372 @@
 {% block title %}User Dashbord{% endblock title%}
 {% block content %}
 
+
+
+<!-- Alerts -->
 {% for message in get_flashed_messages() %}
+<div id="alert-2"
+    class="flex items-center p-4 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+    role="alert">
+    <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+        viewBox="0 0 20 20">
+        <path
+            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+    </svg>
+    <span class="sr-only">Info</span>
+    <div class="ms-3 text-sm font-medium">
+        <p>{{current_user.username}}{{message}} </p>
+    </div>
+    <button type="button"
+        class="ms-auto -mx-1.5 -my-1.5 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-red-400 dark:hover:bg-gray-700"
+        data-dismiss-target="#alert-2" aria-label="Close">
+        <span class="sr-only">Close</span>
+        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+        </svg>
+    </button>
+</div>
+{%endfor%}
+<!-- End Alerts -->
 
-                <div id="alert-2"
-                    class="flex items-center p-4 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
-                    role="alert">
-                    <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                        fill="currentColor" viewBox="0 0 20 20">
-                        <path
-                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-                    </svg>
-                    <span class="sr-only">Info</span>
-                    <div class="ms-3 text-sm font-medium">
-                        <p>{{current_user.username}}{{message}} </p>
+
+
+<!-- Dashbord page -->
+<div class=" flex flex-row-reverse justify-evenly text-white">
+
+
+    <!-- User Details -->
+    <div>
+        <h1 class="text-white">User Dashbord {{current_user.username}}</h1>
+
+        <div class="bg-slate-700 dark:bg-dark-layer-1 shadow-slate-200 dark:shadow-dark-down-01 rounded-lg py-2">
+            <div class="flex h-9 items-center justify-between px-4 lg:pr-4">
+                <div class="flex">
+                    <div
+                        class="flex items-center h-[24px] rounded-l-[5px] px-1.5 text-xs cursor-pointer focus:outline-none bg-fill-3 dark:bg-dark-fill-3 text-label-3 dark:text-dark-label-3">
+                        <span class="w-20 truncate">{{current_user.username}}</span>
                     </div>
-                    <button type="button"
-                        class="ms-auto -mx-1.5 -my-1.5 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-red-400 dark:hover:bg-gray-700"
-                        data-dismiss-target="#alert-2" aria-label="Close">
-                        <span class="sr-only">Close</span>
-                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 14 14">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                        </svg>
-                    </button>
+                    <!-- <button aria-label="config"
+                        class="flex items-center justify-center w-[22px] h-[24px] ml-px rounded-r-[5px] cursor-pointer focus:outline-none text-label-3 dark:text-dark-label-3 bg-fill-3 dark:bg-dark-fill-3"><svg
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em"
+                            fill="currentColor" class="h-3 w-3">
+                            <path fill-rule="evenodd"
+                                d="M7.174 5.619a8.064 8.064 0 011.635-.946l.29-1.158A2 2 0 0111.039 2h1.922a2 2 0 011.94 1.515l.29 1.158c.584.252 1.132.57 1.635.946l1.15-.329a2 2 0 012.282.923l.961 1.665a2 2 0 01-.342 2.437l-.86.832a8.151 8.151 0 010 1.888l.86.83a2 2 0 01.342 2.438l-.96 1.665a2 2 0 01-2.283.923l-1.15-.329a8.063 8.063 0 01-1.635.946l-.29 1.158a2 2 0 01-1.94 1.515H11.04a2 2 0 01-1.94-1.515l-.29-1.158a8.064 8.064 0 01-1.635-.946l-1.15.329a2 2 0 01-2.282-.923l-.961-1.665a2 2 0 01.342-2.437l.86-.831a8.158 8.158 0 010-1.889l-.86-.83a2 2 0 01-.342-2.438l.96-1.665a2 2 0 012.283-.923l1.15.329zm-1.7 1.594l-.961 1.665 1.57 1.518-.114.982a6.157 6.157 0 000 1.425l.114.982-1.57 1.518.96 1.665 2.104-.601.794.593c.38.284.793.523 1.23.711l.908.392.53 2.118h1.922l.53-2.118.909-.392a6.07 6.07 0 001.23-.711l.793-.593 2.103.601.961-1.665-1.57-1.518.114-.982a6.172 6.172 0 000-1.425l-.114-.982 1.57-1.518-.96-1.665-2.104.601-.794-.593a6.067 6.067 0 00-1.23-.71l-.908-.392L12.96 4H11.04l-.53 2.119-.909.391a6.064 6.064 0 00-1.23.711l-.793.593-2.103-.601zM12 16a4 4 0 100-8 4 4 0 000 8zm0-2a2 2 0 110-4 2 2 0 010 4z"
+                                clip-rule="evenodd"></path>
+                        </svg></button> -->
                 </div>
-                {%endfor%}
+            </div>
+            <div class="pl-2 pr-4">
+                <div class="flex items-center justify-between">
+                    <div class="shrink-1 z-base relative max-h-[100px] max-w-[100px]"><svg
+                            class="h-full w-full origin-center -rotate-90 transform" viewBox="0 0 100 100">
+                            <circle fill="none" cx="50px" cy="50px" r="42px" stroke-width="3" stroke-linecap="round"
+                                stroke="currentColor" class="text-gray-4 dark:text-dark-gray-4"></circle>
+                            <circle fill="none" cx="50px" cy="50px" r="42px" stroke-width="3" stroke-linecap="round"
+                                stroke="currentColor" class="curso-pointer text-olive dark:text-dark-olive"
+                                stroke-dasharray="0.6933169994129199 263.20046590212974" stroke-dashoffset="0"
+                                data-difficulty="EASY"></circle>
+                            <circle fill="none" cx="50px" cy="50px" r="42px" stroke-width="3" stroke-linecap="round"
+                                stroke="currentColor" class="cursor-pointer text-yellow dark:text-dark-yellow"
+                                stroke-dasharray="0.08666462492661499 263.807118276616"
+                                stroke-dashoffset="-0.6933169994129199" data-difficulty="MEDIUM"></circle>
+                        </svg>
+                        <div
+                            class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform cursor-default">
+                            <div data-difficulty="TOTAL" class="truncate text-center">
+                                <div class="mb-[1px] text-[11px]"><span
+                                        class="text-label-3 dark:text-dark-label-3">Solved</span></div>
+                                <div
+                                    class="text-dark-paper dark:text-paper pb-0.5 text-xl font-medium leading-none lg:text-2xl lg:leading-none">
+                                    0</div>
+                                <hr class="border-divider-2 dark:border-dark-divider-2 mx-auto max-w-[32px]">
+                                <div class="text-label-4 dark:text-dark-label-4 pt-0.5 text-xs font-semibold">7265</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-auto flex-col min-w-max space-y-2.5 max-w-[128px]">
+                        <div data-difficulty="EASY"
+                            class="flex items-center justify-between text-center truncate cursor-pointer">
+                            <div class="text-sm leading-tight grow text-left"><span
+                                    class="text-olive dark:text-dark-olive">Average Time</span></div>
+                            <div
+                                class="text-label-2 dark:text-dark-label-2 font-semibold leading-none px-[3px] text-sm">
+                                8</div>
+                            <div class="text-label-4 dark:text-dark-label-4 text-xs leading-none font-semibold pr-1">
+                                /771</div>
+                        </div>
+                        <div data-difficulty="MEDIUM"
+                            class="flex items-center justify-between text-center truncate cursor-pointer">
+                            <div class="text-sm leading-tight grow text-left"><span
+                                    class="text-yellow dark:text-dark-yellow">Accuracy</span></div>
+                            <div
+                                class="text-label-2 dark:text-dark-label-2 font-semibold leading-none px-[3px] text-sm">
+                                1</div>
+                            <div
+                                class="text-label-4 dark:text-dark-label-4 text-xs leading-none font-semibold pr-1 tracking-tightest">
+                                /1599</div>
+                        </div>
+                        <div data-difficulty="HARD"
+                            class="flex items-center justify-between text-center truncate cursor-pointer">
+                            <div class="text-sm leading-tight grow text-left"><span
+                                    class="text-pink dark:text-dark-pink">Rank</span></div>
+                            <div
+                                class="text-label-2 dark:text-dark-label-2 font-semibold leading-none px-[3px] text-sm">
+                                0</div>
+                            <div class="text-label-4 dark:text-dark-label-4 text-xs leading-none font-semibold pr-1">
+                                /675</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- User Details -->
 
-<h1>user Dashbord</h1>
 
-<p>u r logined</p>
+
+
+    <!-- Leaderbord will go here  -->
+    <div class=" ">
+        <div>Leader board </div>
+        <p>chanadbir singh </p>
+
+        <div class="v5-section-content-wide leaderboard-index-content">
+            <a href="https://www.chess.com/leaderboard/live" class="leaderboard-index-category">
+                <span class="leaderboard-index-icon-new blitz"></span>
+
+                <span class="leaderboard-index-title">Blitz</span>
+            </a>
+
+            <div class="leaderboard-index-records">
+                <a href="https://www.chess.com/member/magnuscarlsen" class="leaderboard-index-leader">
+                    <div class="leaderboard-index-user">
+
+                        <span class="leaderboard-index-place leaderboard-index-gold">#1</span>
+
+
+
+                        <img alt="Magnus Carlsen" class="leaderboard-index-avatar"
+                            data-src="https://images.chesscomfiles.com/uploads/v1/user/3889224.121e2094.40x40o.e454c9f45cf2.jpg"
+                            data-srcset="https://images.chesscomfiles.com/uploads/v1/user/3889224.121e2094.40x40o.e454c9f45cf2@2x.jpg 2x"
+                            height="40"
+                            src="https://images.chesscomfiles.com/uploads/v1/user/3889224.121e2094.40x40o.e454c9f45cf2.jpg"
+                            width="40"
+                            srcset="https://images.chesscomfiles.com/uploads/v1/user/3889224.121e2094.40x40o.e454c9f45cf2@2x.jpg 2x">
+
+
+                        <div class="leaderboard-index-user-tagline">
+                            <div class="leaderboard-index-chess-title">GM</div>
+
+                            <div class="leaderboard-index-username">MagnusCarlsen</div>
+
+
+
+                            <div data-cy="user-country-flag" v-tooltip="Norway" class="country-flags-component country-104
+
+" data-tooltip-target="0">
+                            </div>
+
+
+
+
+
+
+
+
+                            <span class="flair-component flair-diamond_traditional" v-tooltip="Show your flair!"
+                                data-tooltip-target="1">
+                            </span>
+
+                        </div>
+                    </div>
+
+                    <span class="leaderboard-index-score">3317</span>
+                </a>
+                <a href="https://www.chess.com/member/hikaru" class="leaderboard-index-leader">
+                    <div class="leaderboard-index-user">
+
+                        <span class="leaderboard-index-place leaderboard-index-silver">#2</span>
+
+
+
+                        <img alt="Hikaru Nakamura" class="leaderboard-index-avatar"
+                            data-src="https://images.chesscomfiles.com/uploads/v1/user/15448422.88c010c1.40x40o.505c882f1e6f.png"
+                            data-srcset="https://images.chesscomfiles.com/uploads/v1/user/15448422.88c010c1.40x40o.505c882f1e6f@2x.png 2x"
+                            height="40"
+                            src="https://images.chesscomfiles.com/uploads/v1/user/15448422.88c010c1.40x40o.505c882f1e6f.png"
+                            width="40"
+                            srcset="https://images.chesscomfiles.com/uploads/v1/user/15448422.88c010c1.40x40o.505c882f1e6f@2x.png 2x">
+
+
+                        <div class="leaderboard-index-user-tagline">
+                            <div class="leaderboard-index-chess-title">GM</div>
+
+                            <div class="leaderboard-index-username">Hikaru</div>
+
+
+
+                            <div data-cy="user-country-flag" v-tooltip="Germany" class="country-flags-component country-54
+
+" data-tooltip-target="2">
+                            </div>
+
+
+
+
+
+
+
+
+                            <span class="flair-component flair-diamond_traditional" v-tooltip="Show your flair!"
+                                data-tooltip-target="3">
+                            </span>
+
+                        </div>
+                    </div>
+
+                    <span class="leaderboard-index-score">3249</span>
+                </a>
+                <a href="https://www.chess.com/member/nihalsarin" class="leaderboard-index-leader">
+                    <div class="leaderboard-index-user">
+
+                        <span class="leaderboard-index-place leaderboard-index-bronze">#3</span>
+
+
+
+                        <img alt="Nihal Sarin" class="leaderboard-index-avatar"
+                            data-src="https://images.chesscomfiles.com/uploads/v1/user/7195919.d7c5a9e3.40x40o.842944540e19.jpg"
+                            data-srcset="https://images.chesscomfiles.com/uploads/v1/user/7195919.d7c5a9e3.40x40o.842944540e19@2x.jpg 2x"
+                            height="40"
+                            src="https://images.chesscomfiles.com/uploads/v1/user/7195919.d7c5a9e3.40x40o.842944540e19.jpg"
+                            width="40"
+                            srcset="https://images.chesscomfiles.com/uploads/v1/user/7195919.d7c5a9e3.40x40o.842944540e19@2x.jpg 2x">
+
+
+                        <div class="leaderboard-index-user-tagline">
+                            <div class="leaderboard-index-chess-title">GM</div>
+
+                            <div class="leaderboard-index-username">nihalsarin</div>
+
+
+
+                            <div data-cy="user-country-flag" v-tooltip="Tanzania" class="country-flags-component country-216
+
+" data-tooltip-target="4">
+                            </div>
+
+
+
+
+
+
+
+
+                            <span class="flair-component flair-diamond_traditional" v-tooltip="Show your flair!"
+                                data-tooltip-target="5">
+                            </span>
+
+                        </div>
+                    </div>
+
+                    <span class="leaderboard-index-score">3202</span>
+                </a>
+                <a href="https://www.chess.com/member/bigfish1995" class="leaderboard-index-leader">
+                    <div class="leaderboard-index-user">
+
+                        <span class="leaderboard-index-place ">#4</span>
+
+
+
+                        <img alt="Vladimir Fedoseev" class="leaderboard-index-avatar"
+                            data-src="https://images.chesscomfiles.com/uploads/v1/user/26303484.dc192fa5.40x40o.f534d5ed6245.jpeg"
+                            data-srcset="https://images.chesscomfiles.com/uploads/v1/user/26303484.dc192fa5.40x40o.f534d5ed6245@2x.jpeg 2x"
+                            height="40"
+                            src="https://images.chesscomfiles.com/uploads/v1/user/26303484.dc192fa5.40x40o.f534d5ed6245.jpeg"
+                            width="40"
+                            srcset="https://images.chesscomfiles.com/uploads/v1/user/26303484.dc192fa5.40x40o.f534d5ed6245@2x.jpeg 2x">
+
+
+                        <div class="leaderboard-index-user-tagline">
+                            <div class="leaderboard-index-chess-title">GM</div>
+
+                            <div class="leaderboard-index-username">Bigfish1995</div>
+
+
+
+                            <div data-cy="user-country-flag" v-tooltip="Slovenia" class="country-flags-component country-127
+
+" data-tooltip-target="6">
+                            </div>
+
+
+
+
+
+
+
+
+                            <span class="flair-component flair-diamond_gold" v-tooltip="Show your flair!"
+                                data-tooltip-target="7">
+                            </span>
+
+                        </div>
+                    </div>
+
+                    <span class="leaderboard-index-score">3155</span>
+                </a>
+                <a href="https://www.chess.com/member/lyonbeast" class="leaderboard-index-leader">
+                    <div class="leaderboard-index-user">
+
+                        <span class="leaderboard-index-place ">#5</span>
+
+
+
+                        <img alt="Maxime Vachier-Lagrave" class="leaderboard-index-avatar"
+                            data-src="https://images.chesscomfiles.com/uploads/v1/user/17306408.203effc9.40x40o.5fd457b1eb03.jpg"
+                            data-srcset="https://images.chesscomfiles.com/uploads/v1/user/17306408.203effc9.40x40o.5fd457b1eb03@2x.jpg 2x"
+                            height="40"
+                            src="https://images.chesscomfiles.com/uploads/v1/user/17306408.203effc9.40x40o.5fd457b1eb03.jpg"
+                            width="40"
+                            srcset="https://images.chesscomfiles.com/uploads/v1/user/17306408.203effc9.40x40o.5fd457b1eb03@2x.jpg 2x">
+
+
+                        <div class="leaderboard-index-user-tagline">
+                            <div class="leaderboard-index-chess-title">GM</div>
+
+                            <div class="leaderboard-index-username">LyonBeast</div>
+
+
+
+                            <div data-cy="user-country-flag" v-tooltip="France" class="country-flags-component country-52
+
+" data-tooltip-target="8">
+                            </div>
+
+
+
+
+
+
+
+
+                            <span class="flair-component flair-skull" v-tooltip="Show your flair!"
+                                data-tooltip-target="9">
+                            </span>
+
+                        </div>
+                    </div>
+
+                    <span class="leaderboard-index-score">3146</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 
 
 {% endblock content %}

@@ -1,10 +1,12 @@
-
-
 $(document).ready(function () {
     $("input").keyup(function (e) {
         if (e.which == 39) {
             // right arrow
-            $(this).closest("td").nextAll("td:not(:has(input[disabled])):first").find("input").focus();
+            $(this)
+                .closest("td")
+                .nextAll("td:not(:has(input[disabled])):first")
+                .find("input")
+                .focus();
         } else if (e.which == 37) {
             // left arrow
             $(this)
@@ -19,18 +21,15 @@ $(document).ready(function () {
             var nextRow = $(this).closest("tr").next("tr");
             var tdofnexttr = nextRow.find("td:eq(" + currentIndex + ")");
             console.log("helo helo");
-            console.log(typeof(tdofnexttr));
+            console.log(typeof tdofnexttr);
             console.log(tdofnexttr);
-
 
             while (tdofnexttr.length > 0) {
                 if (!tdofnexttr.find("input").prop("disabled")) {
                     tdofnexttr.find("input").focus();
                     break;
                 } else {
-                    currentIndex = nextRow
-                        .find("td:eq(" + currentIndex + ")")
-                        .index();
+                    currentIndex = nextRow.find("td:eq(" + currentIndex + ")").index();
                     nextRow = nextRow
                         .find("td:eq(" + currentIndex + ")")
                         .closest("tr")
@@ -49,9 +48,7 @@ $(document).ready(function () {
                     tdofprevtr.find("input").focus();
                     break;
                 } else {
-                    currentIndex = prevRow
-                        .find("td:eq(" + currentIndex + ")")
-                        .index();
+                    currentIndex = prevRow.find("td:eq(" + currentIndex + ")").index();
                     prevRow = prevRow
                         .find("td:eq(" + currentIndex + ")")
                         .closest("tr")
@@ -62,3 +59,36 @@ $(document).ready(function () {
         }
     });
 });
+
+
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
+
+
+async function delayedLoop() {
+    for (const key in order) {
+        let x = order[key][0];
+        let y =  order[key][1];
+        let prefix = "input";
+        let id = prefix + x + "-" + y;
+        if (grid[x][y] != "") {
+            var delay = 50;
+            await sleep(delay);
+            document.getElementById(id).value = grid[x][y];
+        
+    };
+
+    };           
+     
+}
+
+
+
+
+
+// delayedLoop();
+

@@ -16,10 +16,7 @@ client = MongoClient(uri, server_api=ServerApi('1'))
 mydb = client["crossword-solver"]
 mycol = mydb["puzzles"]
 
-# loop
 
-# mydict = { "name": "John", "address": "Highway 37" }
-# x = mycol.insert_one(mydict)
 
 
 

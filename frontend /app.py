@@ -1,14 +1,14 @@
-
 from flask import Flask, render_template as rt, request ,flash ,redirect
-from api.db_crud import puzzle_data,blocked_cells , alreadyExit, addUser,userData, SECRET_KEY
+from api.db_crud import puzzle_data,blocked_cells , alreadyExit, addUser,userData, getgrid
 from formClasses import signupForm, loginForm
 from api.pageIncreDecre import get_all_objects
-from flask_login import UserMixin, login_user,LoginManager ,login_required, logout_user ,current_user
+from flask_login import UserMixin, login_user,LoginManager ,login_required, logout_user ,current_user 
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app=Flask(__name__)
 
-app.config['SECRET_KEY'] = SECRET_KEY()
+app.config['SECRET_KEY'] = "alpha-beta-gamma-gang"
+
 
 # Flask_Login Stuff
 login_manager = LoginManager()
@@ -20,40 +20,6 @@ def load_user(email):
     data= userData(email)
     user_object = User( username=data['userNmae'],email=data['email'], pass_hash=data['pass_hash'] )
     return user_object
-
-
-# class User:
-#     def __init__(self, username):
-#         self.username = username
-
-#     @staticmethod
-#     def is_authenticated():
-#         return True
-
-#     @staticmethod
-#     def is_active():
-#         return True
-
-#     @staticmethod
-#     def is_anonymous():
-#         return False
-
-#     def get_id(self):
-#         return self.username
-
-#     @staticmethod
-#     def check_password(password_hash, password):
-#         return check_password_hash(password_hash, password)
-
-
-# @login.user_loader
-# def load_user(username):
-#     u = mongo.db.Users.find_one({"Name": username})
-#     if not u:
-#         return None
-#     return User(username=u['Name'])
-
-
 
 class User(UserMixin):
     def __init__(self, username, email,pass_hash):
@@ -105,8 +71,10 @@ def crossword():
         crosswordid = int(request.form.get("crossword-id"))
         clue_data=puzzle_data(crosswordid)
         blocked_cell_list = blocked_cells(clue_data)
+        grid , order = getgrid(clue_data)
 
-    return rt('crossword.html',  blocked_cell_list= blocked_cell_list ,clue_data=clue_data)
+
+    return rt('crossword.html',  blocked_cell_list= blocked_cell_list ,clue_data=clue_data , grid = grid , order = order)
 # the play crossword page 
 
 # login
@@ -160,7 +128,7 @@ def signin():
 @login_required
 def logout():
 	logout_user()
-	flash("You Have Been Logged Out!  Thanks For Stopping By...")
+	flash("You Have Been Logged Out!")
 	return redirect(('/login'))
 
 # synopsis
@@ -186,7 +154,9 @@ def dashbord():
     return rt('dashbord.html')
 
 
-
+# @app.route('/test')
+# def test():
+#    x = get_all_users()
 
 
 # all the errors goes here 
@@ -204,7 +174,7 @@ def badlink(e):
 
 
 
-app.run( debug=True , host='0.0.0.0',port=8080)
+app.run(debug=True, host='0.0.0.0',port=8080)
 
 
 

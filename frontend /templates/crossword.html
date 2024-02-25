@@ -24,7 +24,7 @@
                                 class="cell border-[1px] h-7 w-7 md:w-9 md:h-9  relative bg-transparent border-black">
                                 {% for item in clue_data.entries %} {% if ( item.position.x == j)
                                 and ( item.position.y == i) %}
-                                <span id="text{{j}}-{{i}}" class="text max-h-0 absolute text-xs text-gray-500">
+                                <span id="text{{j}}-{{i}}" class="text max-h-0 absolute text-[10px] text-gray-500">
                                     {{item.number}} </span>
                                 {% endif %} {% endfor %}
 
@@ -42,9 +42,9 @@
 
         </div>
         <div class="text-white flex flex-row flex-wrap justify-around ">
-            <button class=" py-2 px-5 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 ">Check All</button>
-            <button class=" py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5">Reveal All</button>
-            <button class=" py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5">Clear All</button>
+           <!-- <button class=" py-2 px-5 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 ">Check All</button> -->
+            <button id="Reveal"  onclick = delayedLoop() class=" py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5">Reveal All</button>
+            <!--  <button class=" py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5">Clear All</button>-->
 
         </div>
 
@@ -52,10 +52,10 @@
 
 
 
-    <div class="clue flex justify-between flex-wrap text-blue ">
+    <div class="clue flex justify-between  flex-wrap text-blue ">
 
 
-        <div class="across-clue m-3">
+        <div class="across-clue w-80 m-2">
             <h3>Across</h3>
             <ul class=" flex flex-col justify-between">
                 {%for item in clue_data.entries%} {% if item.direction == 'across' %}
@@ -74,7 +74,7 @@
 
 
 
-        <div class="down-clue m-3  ">
+        <div class="down-clue m-2 w-80 ">
             <h3>Down</h3>
             <ul class=" flex flex-col justify-between">
                 {%for item in clue_data.entries%} {% if item.direction == 'down' %}
@@ -93,6 +93,9 @@
 
 <script>
     var myList = {{ blocked_cell_list| tojson | safe}};
+
+    let grid = {{grid | tojson | safe}}
+    let order = {{order | tojson | safe}}
 
     for (var i = 0; i < myList.length; i++) {
         document.getElementById(myList[i]).disabled = true;

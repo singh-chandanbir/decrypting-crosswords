@@ -89,7 +89,7 @@ def login():
                 user_object = User( username=data['userNmae'],email=data['email'], pass_hash=data['pass_hash'] )
                 login_user(user_object)
                 flash("Login Succesfull!!")
-                return redirect('/dashbord')
+                return redirect('/')
             else:
                 flash('Incorrect login credentials')
         else:

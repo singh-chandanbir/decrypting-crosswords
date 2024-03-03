@@ -1,20 +1,6 @@
-import json
-from pymongo.mongo_client import MongoClient
-from pymongo.server_api import ServerApi
-from dotenv import load_dotenv
+from db.db import db
 
-
-import os 
-load_dotenv()
-db_user = os.getenv("DBUSER")
-db_pass = os.getenv("DBPASS")  
-
-
-
-### MonGo DB Stuff
-uri = "mongodb+srv://"+str(db_user)+":"+str(db_pass)+"@cluster0.ebzle64.mongodb.net/"
-client = MongoClient(uri, server_api=ServerApi('1'))
-mydb = client["crossword-solver"]
+mydb = db
 
 
 ### puzzles data and all its funtions
@@ -143,31 +129,31 @@ def getgrid(clue_data):
 #     conPassword = PasswordField('Confirm Password', validators=[DataRequired()])
 #     submit = SubmitField("Submit")
 
-user = mydb["users"]
+# user = mydb["users"]
 
 
 
 
 
 
-def addUser( userName , email, pass_hash):
+# def addUser( userName , email, pass_hash):
 
-    user_data = dict(userNmae = userName, email = email, pass_hash = pass_hash)
-    result = user.insert_one(user_data)
-    print(result)
-
-
-def alreadyExit(email):
-        data = user.find_one({ "email": email })
-        if data:
-            return True
-        else:
-            return False
+#     user_data = dict(userNmae = userName, email = email, pass_hash = pass_hash)
+#     result = user.insert_one(user_data)
+#     print(result)
 
 
-def userData(email):
-    data = user.find_one({ "email": email })
-    return data
+# def alreadyExit(email):
+#         data = user.find_one({ "email": email })
+#         if data:
+#             return True
+#         else:
+#             return False
+
+
+# def userData(email):
+#     data = user.find_one({ "email": email })
+#     return data
 
 
 

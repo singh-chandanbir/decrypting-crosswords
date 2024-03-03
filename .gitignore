@@ -6,4 +6,5 @@ config.json
 quick/
 puzzles1/
 .env
-test.json
+.vscode/
+test/

@@ -19,7 +19,7 @@ title%} {% block content %}
                 j) and ( item.position.y == i) %}
                 <span
                   id="text{{j}}-{{i}}"
-                  class="text max-h-0 absolute text-[10px] text-gray-500"
+                  class="text max-h-0 absolute text-[6px] sm:text-[10px] text-gray-500"
                 >
                   {{item.number}}
                 </span>
@@ -89,7 +89,7 @@ title%} {% block content %}
 <div id="think" class="hidden">
   <div class="absolute bottom-6 right-6 animate-floating">
     <img
-      class="w-[50vw]"
+      class="w-[100vw] sm:w-[50vw]"
       src="{{url_for('static', filename = 'assets/images/think.png')}}"
     />
   </div>

@@ -32,9 +32,10 @@ module.exports = {
         'Gliker': ["gliker-bold", "sans-serif"],
 
       },
-    plugins: [
-        // require("flowbite/plugin")
-      ],
+      plugins: [
+        require('flowbite/plugin')({
+            charts: true,
+        }),]
     }
 
   }}

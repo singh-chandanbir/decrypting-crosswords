@@ -20,6 +20,9 @@ class forgetPasswordForm(FlaskForm):
     email = EmailField("Your Email", validators=[DataRequired()])
     submit = SubmitField("Send Email")
     
+class otpForm(FlaskForm):
+    otp = StringField("Enter OTP", validators=[DataRequired()])
+    submit = SubmitField("Verify OTP")
 
 
 

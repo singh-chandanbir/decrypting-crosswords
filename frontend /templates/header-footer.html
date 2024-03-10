@@ -67,9 +67,6 @@
             <!-- login signup button -->
             <div class="flex items-center md:order-2 space-x-1 md:space-x-2 rtl:space-x-reverse">
                 {% if current_user.is_authenticated %}
-
-
-
                 <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown"
                     data-dropdown-placement="bottom-start" class="w-10 h-10 rounded-full cursor-pointer"
                     src={{url_for('static' , filename='assets/images/chandan.png' )}} alt="User dropdown">

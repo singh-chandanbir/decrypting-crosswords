@@ -8,3 +8,5 @@ puzzles1/
 .env
 .vscode/
 test/
+client_secret.json
+test.html

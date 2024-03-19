@@ -6,6 +6,6 @@
 @font-face {
     font-family: 'gliker-bold';
     src:
-        url('../../assets/fonts/Gliker-Bold.woff') format('woff');
+        url('../assets/fonts/Gliker-Bold.woff') format('woff');
 
 }

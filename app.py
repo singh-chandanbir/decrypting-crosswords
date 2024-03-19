@@ -6,7 +6,7 @@ from flask_cors import CORS
 
 
 ##### .......................................... Flask App .............................................#####
-app=Flask(__name__)
+app=Flask(__name__, static_url_path='/static', static_folder='static')
 app.config['SECRET_KEY'] = getenv("SECRET_KEY")
 
 CORS(app, supports_credentials=True , origins=['http://172.16.8.97:5000'])

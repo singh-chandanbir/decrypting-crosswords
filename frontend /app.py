@@ -2,10 +2,14 @@
 from flask import Flask, render_template as rt
 from os import getenv
 from flask_mail import Mail
+from flask_cors import CORS
+
 
 ##### .......................................... Flask App .............................................#####
 app=Flask(__name__)
 app.config['SECRET_KEY'] = getenv("SECRET_KEY")
+
+CORS(app, supports_credentials=True , origins=['http://172.16.8.97:5000'])
 
 
 ##### .......................................... Mail Configuration .............................................#####
@@ -23,6 +27,7 @@ mail = Mail(app)
 
 @app.route('/')
 def homepage():
+
     return rt('index.html')
 
 @app.route('/synopsis')
@@ -38,6 +43,16 @@ def about_us():
     return rt('about-us.html')
 
 
+@app.route('/test' , methods=['GET', 'POST'])
+def test():
+    print(request.method)
+    print(current_user.email)
+    if request.method == 'POST':
+        print(request.form)
+
+
+    return rt('test.html')
+
 #####.......................................... Errors Pages  .............................................#####
 @app.errorhandler(404)
 def badlink(e):
@@ -46,8 +61,8 @@ def badlink(e):
 
 
 ##### .......................................... Importing Routes .............................................#####
-from users import routes
-from crosswords import routes
+from users.routes import *
+from crosswords.routes import *
 
 
 

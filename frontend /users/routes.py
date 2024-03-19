@@ -22,7 +22,7 @@ def load_user(email):
 
 
 # login
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/user/login', methods=['GET', 'POST'])
 def login():
     form=loginForm()
     if form.validate_on_submit():
@@ -37,7 +37,7 @@ def login():
 
 
 # Signup
-@app.route('/signup', methods=['GET', 'POST'])
+@app.route('/user/signup', methods=['GET', 'POST'])
 def signin():
     form = signupForm()
     if form.validate_on_submit():
@@ -49,7 +49,7 @@ def signin():
             return redirect('/signup')
     return rt('signup.html' , form=form)
 
-@app.route('/otp', methods=['GET', 'POST'])
+@app.route('/user/verify-otp', methods=['GET', 'POST'])
 def otp():
     form = otpForm()
     if form.validate_on_submit():

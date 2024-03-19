@@ -22,11 +22,11 @@ class User(UserMixin):
         self.otp = userData['otp']
         
 
-    def set_active(self):
-        self.is_active = True
+    # def set_active(self):
+    #     self.is_active = True
 
-    def set_authenticated(self):
-        self.is_authenticated = True
+    # def set_authenticated(self):
+    #     self.is_authenticated = True
             
     def get_id(self):
         return self.email

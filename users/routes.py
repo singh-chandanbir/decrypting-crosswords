@@ -1,8 +1,8 @@
 from app import app
 from users.userforms  import signupForm, loginForm, otpForm
 from users.modal import User
-from flask import render_template as rt, flash, redirect
-from flask_login import current_user , LoginManager , logout_user , login_required 
+from flask import render_template as rt, flash, redirect , url_for
+from flask_login import current_user , LoginManager , logout_user , login_required
 
 
 ##### .......................................... User Login Configurations .............................................#####
@@ -29,10 +29,10 @@ def login():
         res , status = User.login(form)
         if status:
             flash(res)
-            return redirect('/dashboard')
+            return redirect(url_for('dashboard'))
         else:
             flash(res)
-            return redirect('/login')
+            return redirect(url_for('login'))
     return rt('login.html' , form = form )
 
 
@@ -59,10 +59,10 @@ def otp():
             print("hello")
             print(current_user.email)
             flash('Email confirmed!', 'success')
-            return redirect('/dashboard')
+            return redirect(url_for('dashboard'))
         else:
             flash('Invalid OTP!', 'danger')
-            return redirect('/otp')
+            return redirect(url_for('otp'))
    
     return rt('otp.html', form = form)
 
@@ -74,7 +74,7 @@ def otp():
 def logout():
 	logout_user()
 	flash("You Have Been Logged Out!")
-	return redirect(('/login'))
+	return redirect(url_for('login'))
 
 
 @app.route('/dashboard')

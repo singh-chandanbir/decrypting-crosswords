@@ -1,0 +1,336 @@
+{% extends "header-footer.html" %}
+{% block head %}
+{% endblock head %}
+
+
+{% block title %}User Dashbord{% endblock title%}
+{% block content %}
+
+<div class="flex flex-col justify-center items-center h-[60vh]">
+    <div class="relative flex flex-col sm:flex-row justify-center items-center rounded-[20px] w-[700px] max-w-[95%] mx-auto bg-white dark:bg-slate-500 bg-clip-border shadow-3xl shadow-shadow-500 dark:!bg-navy-800 dark:text-white dark:!shadow-none p-3">
+        <div class="mt-2 mb-8 w-full flex justify-center items-center">
+            <img  class=" w-64 bg-slate-400 rounded-lg " src="../static/assets/images/chandan.png" alt="">
+       
+        </div> 
+        <div class="grid grid-cols-2 gap-4 px-2 w-full">
+            <div class="flex flex-col items-start justify-center rounded-2xl dark:bg-slate-400 bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
+            <p class="text-sm text-gray-900">Name</p>
+            <p class="text-base font-medium text-navy-700 dark:text-white">
+                {{current_user.name}}
+            </p>
+            </div>
+
+            <div class="flex flex-col justify-center rounded-2xl dark:bg-slate-400 bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none overflow-scroll">
+            <p class="text-sm text-gray-900">Email</p>
+            <p class="text-base font-medium text-navy-700 dark:text-white">
+                {{current_user.email}}
+            </p>
+            </div>
+
+            <div class="flex flex-col items-start justify-center rounded-2xl dark:bg-slate-400 bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
+            <p class="text-sm text-gray-900">Average time</p>
+            <p class="text-base font-medium text-navy-700 dark:text-white">
+                {{current_user.averagetime}}
+            </p>
+            </div>
+
+            <div class="flex flex-col justify-center rounded-2xl dark:bg-slate-400 bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
+            <p class="text-sm text-gray-900">Global Rank</p>
+            <p class="text-base font-medium text-navy-700 dark:text-white">
+                {{current_user.globalrank}}
+            </p>
+            </div>
+
+            <div class="flex flex-col items-start justify-center rounded-2xl dark:bg-slate-400 bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
+            <p class="text-sm text-gray-900">No. of Crosseword solved</p>
+            <p class="text-base font-medium text-navy-700 dark:text-white">
+                {{current_user.crossword_solved}}
+            </p>
+            </div>
+
+            <div class="flex flex-col justify-center rounded-2xl dark:bg-slate-400 bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
+            <p class="text-sm text-gray-900">Birthday</p>
+            <p class="text-base font-medium text-navy-700 dark:text-white">
+                20 July 1986
+            </p>
+            </div>
+        </div>
+    </div>  
+</div>
+
+
+
+
+<h1 class="text-white"> Welcome {{current_user.name}} </h1>
+
+
+<!-- Dashbord page -->
+<div class=" flex flex-row-reverse justify-evenly text-white">
+
+
+    <!-- User Details -->
+    <div>
+        <h1 class="text-white">Name: {{current_user.name}}</h1>
+        <h1 class="text-white">Email: {{current_user.email}}</h1>
+
+
+        <div class="bg-slate-700 dark:bg-dark-layer-1 shadow-slate-200 dark:shadow-dark-down-01 rounded-lg py-2">
+            <div class="flex h-9 items-center justify-between px-4 lg:pr-4">
+                <div class="flex">
+                    <div
+                        class="flex items-center h-[24px] rounded-l-[5px] px-1.5 text-xs cursor-pointer focus:outline-none bg-fill-3 dark:bg-dark-fill-3 text-label-3 dark:text-dark-label-3">
+                        <span class="w-20 truncate">{{current_user.averagetime}}</span>
+                    </div>
+                
+                </div>
+            </div>
+            <div class="pl-2 pr-4">
+                <div class="flex items-center justify-between">
+                    <div class="shrink-1 z-base relative max-h-[100px] max-w-[100px]"><svg
+                            class="h-full w-full origin-center -rotate-90 transform" viewBox="0 0 100 100">
+                            <circle fill="none" cx="50px" cy="50px" r="42px" stroke-width="3" stroke-linecap="round"
+                                stroke="currentColor" class="text-gray-4 dark:text-dark-gray-4"></circle>
+                            <circle fill="none" cx="50px" cy="50px" r="42px" stroke-width="3" stroke-linecap="round"
+                                stroke="currentColor" class="curso-pointer text-olive dark:text-dark-olive"
+                                stroke-dasharray="0.6933169994129199 263.20046590212974" stroke-dashoffset="0"
+                                data-difficulty="EASY"></circle>
+                            <circle fill="none" cx="50px" cy="50px" r="42px" stroke-width="3" stroke-linecap="round"
+                                stroke="currentColor" class="cursor-pointer text-yellow dark:text-dark-yellow"
+                                stroke-dasharray="0.08666462492661499 263.807118276616"
+                                stroke-dashoffset="-0.6933169994129199" data-difficulty="MEDIUM"></circle>
+                        </svg>
+                        <div
+                            class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform cursor-default">
+                            <div data-difficulty="TOTAL" class="truncate text-center">
+                                <div class="mb-[1px] text-[11px]"><span
+                                        class="text-label-3 dark:text-dark-label-3">Solved</span></div>
+                                <div
+                                    class="text-dark-paper dark:text-paper pb-0.5 text-xl font-medium leading-none lg:text-2xl lg:leading-none">
+                                    {{current_user.crossword_solved}}</div>
+                                <hr class="border-divider-2 dark:border-dark-divider-2 mx-auto max-w-[32px]">
+                                <div class="text-label-4 dark:text-dark-label-4 pt-0.5 text-xs font-semibold">7265</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-auto flex-col min-w-max space-y-2.5 max-w-[128px]">
+                        <div data-difficulty="EASY"
+                            class="flex items-center justify-between text-center truncate cursor-pointer">
+                            <div class="text-sm leading-tight grow text-left"><span
+                                    class="text-olive dark:text-dark-olive">Average Time</span></div>
+                            <div
+                                class="text-label-2 dark:text-dark-label-2 font-semibold leading-none px-[3px] text-sm">
+                                8</div>
+                            <div class="text-label-4 dark:text-dark-label-4 text-xs leading-none font-semibold pr-1">
+                                /771</div>
+                        </div>
+                        <div data-difficulty="MEDIUM"
+                            class="flex items-center justify-between text-center truncate cursor-pointer">
+                            <div class="text-sm leading-tight grow text-left"><span
+                                    class="text-yellow dark:text-dark-yellow">Accuracy</span></div>
+                            <div
+                                class="text-label-2 dark:text-dark-label-2 font-semibold leading-none px-[3px] text-sm">
+                                1</div>
+                            <div
+                                class="text-label-4 dark:text-dark-label-4 text-xs leading-none font-semibold pr-1 tracking-tightest">
+                                /1599</div>
+                        </div>
+                        <div data-difficulty="HARD"
+                            class="flex items-center justify-between text-center truncate cursor-pointer">
+                            <div class="text-sm leading-tight grow text-left"><span
+                                    class="text-pink dark:text-dark-pink">Rank</span></div>
+                            <div
+                                class="text-label-2 dark:text-dark-label-2 font-semibold leading-none px-[3px] text-sm">
+                                0</div>
+                            <div class="text-label-4 dark:text-dark-label-4 text-xs leading-none font-semibold pr-1">
+                                /675</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- User Details -->
+
+
+
+
+    <!-- Leaderbord will go here  -->
+    <div class=" ">
+        <div>Leader board </div>
+
+
+        <div class="v5-section-content-wide leaderboard-index-content">
+
+
+            <div class="flex flex-col ">
+
+                <div class="flex justify-between w-80 p-2 mt-4 rounded-md     bg-slate-500 items-center ">
+                    <span class="leaderboard-index-place leaderboard-index-gold">#1</span>
+                    <img alt="Magnus Carlsen" class=" rounded-full" height="40"
+                        src="https://images.chesscomfiles.com/uploads/v1/user/3889224.121e2094.40x40o.e454c9f45cf2.jpg"
+                        width="40">
+                    <div class="leaderboard-index-username">MagnusCarlsen</div>
+                    <span class="leaderboard-index-score">3317</span>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+    <div class="flex justify-between">
+        <div>
+            <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">32.4k</h5>
+            <p class="text-base font-normal text-gray-500 dark:text-gray-400">Users this week</p>
+        </div>
+        <div
+            class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
+            12%
+            <svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 10 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M5 13V1m0 0L1 5m4-4 4 4" />
+            </svg>
+        </div>
+    </div>
+    <div id="area-chart"></div>
+    <div class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between">
+        <div class="flex justify-between items-center pt-5">
+            <!-- Button -->
+            <button id="dropdownDefaultButton" data-dropdown-toggle="lastDaysdropdown" data-dropdown-placement="bottom"
+                class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 text-center inline-flex items-center dark:hover:text-white"
+                type="button">
+                Last 7 days
+                <svg class="w-2.5 m-2.5 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 4 4 4-4" />
+                </svg>
+            </button>
+            <!-- Dropdown menu -->
+            <div id="lastDaysdropdown"
+                class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Yesterday</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Today</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last
+                            7 days</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last
+                            30 days</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last
+                            90 days</a>
+                    </li>
+                </ul>
+            </div>
+            <a href="#"
+                class="uppercase text-sm font-semibold inline-flex items-center rounded-lg text-blue-600 hover:text-blue-700 dark:hover:text-blue-500  hover:bg-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 px-3 py-2">
+                Users Report
+                <svg class="w-2.5 h-2.5 ms-1.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="none" viewBox="0 0 6 10">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 9 4-4-4-4" />
+                </svg>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script>  let name = {{ current_user.name| tojson | safe}};</script>
+<script src="../static/working/chart.js"></script>
+    let name = {{ current_user.name| tojson | safe}};
+    const options = {
+        chart: {
+          height: "100%",
+          maxWidth: "100%",
+          type: "area",
+          fontFamily: "Inter, sans-serif",
+          dropShadow: {
+            enabled: false,
+          },
+          toolbar: {
+            show: false,
+          },
+        },
+        tooltip: {
+          enabled: true,
+          x: {
+            show: false,
+          },
+        },
+        fill: {
+          type: "gradient",
+          gradient: {
+            opacityFrom: 0.55,
+            opacityTo: 0,
+            shade: "#1C64F2",
+            gradientToColors: ["#1C64F2"],
+          },
+        },
+        dataLabels: {
+          enabled: false,
+        },
+        stroke: {
+          width: 6,
+        },
+        grid: {
+          show: false,
+          strokeDashArray: 4,
+          padding: {
+            left: 2,
+            right: 2,
+            top: 0
+          },
+        },
+        series: [
+          {
+            name: name,
+            data: [6500, 6418, 6456, 6526, 6356, 6456],
+            color: "#1A56DB",
+          },
+        ],
+        xaxis: {
+          categories: ['01 February', '02 February', '03 February', '04 February', '05 February', '06 February', '07 February'],
+          labels: {
+            show: false,
+          },
+          axisBorder: {
+            show: false,
+          },
+          axisTicks: {
+            show: false,
+          },
+        },
+        yaxis: {
+          show: false,
+        },
+      }
+      
+      if (document.getElementById("area-chart") && typeof ApexCharts !== 'undefined') {
+        const chart = new ApexCharts(document.getElementById("area-chart"), options);
+        chart.render();
+      }
+      </script>
+
+
+{% endblock content %} -->

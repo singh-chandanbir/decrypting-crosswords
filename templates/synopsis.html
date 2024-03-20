@@ -1,0 +1,18 @@
+{% extends "header-footer.html" %}
+
+{% block head %}<!-- 
+<link rel="stylesheet" href="{{url_for('static', filename='./style/index.css')}}"> -->{% endblock %}
+
+{% block title %}Synopsis{% endblock %}
+
+
+{% block content %}
+<div class="flex justify-center w-screen h-screen">
+<iframe class="  w-3/4 h-screen" src="{{url_for('static', filename='./assets/files/SynopsisDecordingCrossword.pdf')}}" title="synopsis">
+</iframe>
+</div>
+
+ 
+
+
+{% endblock content %}

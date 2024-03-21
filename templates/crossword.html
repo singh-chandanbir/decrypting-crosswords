@@ -1,9 +1,19 @@
 {% extends "header-footer.html" %} {% block title %}The Playground{% endblock
 title%} {% block content %}
 
+
+<!-- wrapper for crossword and clues -->
 <div class="flex justify-around flex-wrap m-5">
+
+  <!-- left side -->
   <div class="flex flex-col">
-    <div class="crossword-division bg-bg">
+
+    <!-- crossword div -->
+    <div class="crossword-division bg-bg relative">
+
+      <h2 class=" inline-block m-2 ml-4">{{clue_data.name}}</h2>
+      <h3 id="timer" class=" inline-block float-right m-2 mr-4">00:00</h3>
+
       <form class="bg-yellow">
         <table class="box-border border-gray-700 border-2 border-spacing-[0px]">
           <tbody class="border-inherit">
@@ -11,26 +21,17 @@ title%} {% block content %}
             <tr>
               {% for j in range(clue_data.dimensions.rows)%}
 
-              <td
-                id="cell{{j}}-{{i}}"
-                class="cell border-[1px] h-7 w-7 md:w-9 md:h-9 relative bg-transparent border-black"
-              >
-                {% for item in clue_data.entries %} {% if ( item.position.x ==
-                j) and ( item.position.y == i) %}
-                <span
-                  id="text{{j}}-{{i}}"
-                  class="text max-h-0 absolute text-[6px] sm:text-[10px] text-gray-500"
-                >
+              <td id="cell{{j}}-{{i}}"
+                class="cell border-[1px] h-7 w-7 md:w-9 md:h-9 relative bg-transparent border-black">
+                {% for item in clue_data.entries %} {% if ( item.position.x == j) and ( item.position.y == i) %}
+                <span id="text{{j}}-{{i}}" class="text max-h-0 absolute text-[6px] sm:text-[10px] text-gray-500">
                   {{item.number}}
                 </span>
                 {% endif %} {% endfor %}
 
-                <input
-                  id="input{{j}}-{{i}}"
-                  class="inputbox w-full border-none h-full text-center bg-transparent text-lg focus-visible:outline focus-visible:outline-4 focus-visible:outline-blue foz-10 focus-visible:bg-yellow-200 focus-visible:shadow-sm m-0 relative"
-                  type="text"
-                  maxlength="1"
-                />
+                <input id="input{{j}}-{{i}}"
+                  class="inputbox uppercase w-full border-none h-full text-center bg-transparent text-lg focus-visible:outline focus-visible:outline-4 focus-visible:outline-blue foz-10 focus-visible:bg-yellow-200 focus-visible:shadow-sm m-0 relative"
+                  type="text" maxlength="1" />
               </td>
 
               {% endfor %}
@@ -40,19 +41,38 @@ title%} {% block content %}
         </table>
       </form>
     </div>
-    <div class="text-white flex flex-row flex-wrap justify-around">
-      <!-- <button class=" py-2 px-5 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 ">Check All</button> -->
+
+    <div id="start-btn-wrapper" class="text-white h-[364px] w-[364px] md:w-[468px] md:h-[468px]  flex flex-row flex-wrap justify-around items-center absolute">
+      <div class="w-full h-full top-[40px] flex justify-center items-center  bg-slate-500/75 relative ">
+        <button
+          class=" py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5 opacity-100 absolute"
+          onclick=startgame()>Start
+        </button>
+      </div>
+
+      
+
+
+    </div>
+
+    <!-- buttons div -->
+
+    <div id="btn-wrapper" class="text-white hidden  flex-row flex-wrap justify-around">
       <button
-        id="Reveal"
-        onclick="delayedLoop()"
-        class="py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5"
-      >
+        class=" py-2 px-5 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 "
+        onclick="clearInterval(timer)">Check All</button>
+      <button id="Reveal" onclick="delayedLoop()"
+        class="py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5">
         Reveal All
       </button>
-      <!--  <button class=" py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5">Clear All</button>-->
+      <button onclick="clearAll()"
+        class=" py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5">Clear
+        All</button>
     </div>
   </div>
 
+
+  <!-- right side  -->
   <div class="clue flex justify-between flex-wrap text-blue">
     <div class="across-clue w-80 m-2">
       <h3>Across</h3>
@@ -88,26 +108,24 @@ title%} {% block content %}
 </div>
 <div id="think" class="hidden">
   <div class="absolute bottom-6 right-6 animate-floating">
-    <img
-      class="w-[100vw] sm:w-[50vw]"
-      src="{{url_for('static', filename = 'assets/images/think.png')}}"
-    />
+    <img class="w-[100vw] sm:w-[50vw]" src="{{url_for('static', filename = 'assets/images/think.png')}}" />
   </div>
 </div>
 
 <script>
   var myList = {{ blocked_cell_list| tojson | safe}};
 
-  let grid = {{grid | tojson | safe}}
-  let order = {{order | tojson | safe}}
+  let grid = {{ grid | tojson | safe}};
+  let order = {{ order | tojson | safe}};
 
   for (var i = 0; i < myList.length; i++) {
-      document.getElementById(myList[i]).disabled = true;
-      document.getElementById(myList[i]).closest('td').style.backgroundColor = "black";
+    document.getElementById(myList[i]).disabled = true;
+    document.getElementById(myList[i]).closest('td').style.backgroundColor = "black";
   }
 </script>
 
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="{{url_for('static',filename='./working/crossword.js')}}"></script>
 
 {% endblock content %}

@@ -9,7 +9,8 @@ puzzles1/
 test/
 client_secret.json
 test.html
-
+checkpoints
+data
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

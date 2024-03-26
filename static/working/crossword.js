@@ -20,7 +20,6 @@ $(document).ready(function () {
             var currentIndex = $(this).closest("td").index();
             var nextRow = $(this).closest("tr").next("tr");
             var tdofnexttr = nextRow.find("td:eq(" + currentIndex + ")");
-            console.log("helo helo");
             console.log(typeof tdofnexttr);
             console.log(tdofnexttr);
 
@@ -67,33 +66,63 @@ function sleep(ms) {
 }
 
 let bot = document.getElementById("think")
-
-
 async function delayedLoop() {
 
     bot.style.display = "block";
     console.log(bot)
     for (const key in order) {
         let x = order[key][0];
-        let y =  order[key][1];
+        let y = order[key][1];
         let prefix = "input";
         let id = prefix + x + "-" + y;
         if (grid[x][y] != "") {
             var delay = 50;
             await sleep(delay);
             document.getElementById(id).value = grid[x][y];
-        
-    };
-    
 
-    };    
-    bot.style.display = "none";       
-     
+        };
+
+
+    };
+    bot.style.display = "none";
+
 }
 
 
+function timer() {
+    var sec = 1;
+    var min = 0;
+    var timer = setInterval(function () {
+        if (sec < 10) {
+            dis_sec = '0' + sec;
+        } else { dis_sec = sec; }
+
+        if (min < 10) {
+            dis_min = '0' + min;
+        } else { dis_min = min; }
+
+        document.getElementById('timer').innerHTML = dis_min + ':' + dis_sec;
+        sec++;
+        if (sec < 0) {
+            clearInterval(timer);
+        }
+        if (sec == 61) {
+            sec = 0;
+            min++;
+        }
+    }, 1000);
+}
+function clearAll() {
+    let inputboxs = document.getElementsByClassName("inputbox");
+    for (const iterator of inputboxs) {
+        iterator.value = "";
+    }
+}
 
 
+function startgame() {
+    timer();
+    document.getElementById("start-btn-wrapper").style.display = "none";
+    document.getElementById("btn-wrapper").style.display = "flex";
 
-// delayedLoop();
-
+}

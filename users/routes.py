@@ -44,9 +44,9 @@ def signin():
         response, status = User.signup(form)
         flash(response)
         if (status):
-             return redirect('/otp')
+             return redirect(url_for('otp'))
         else:
-            return redirect('/signup')
+            return redirect(url_for('signin'))
     return rt('signup.html' , form=form)
 
 @app.route('/user/verify-otp', methods=['GET', 'POST'])

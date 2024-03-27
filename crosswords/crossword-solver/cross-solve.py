@@ -6,7 +6,7 @@ import json
 import os
 import re
 
-puzzle_file = './data/LA_times/20240310.puz'
+puzzle_file = './puzzles/LA_times/20240310.puz'
 
 
 def solve(crossword):
@@ -18,13 +18,6 @@ def solve(crossword):
     print("* Gold Solution *")
     print_grid(crossword.letter_grid)
     solver.evaluate(solution)
-    date_part = re.search(r'(\d{8})', puzzle_file).group()
-    crossword_data = {"answers": solution}
-    existing_folder_path = "./data/LA_times/answers/"
-    file_path = os.path.join(existing_folder_path, f'{date_part}.json')
-    with open(file_path, 'w') as json_file:
-        json.dump(crossword_data, json_file)
-    print(f"Crossword solution has been saved to {file_path}")
 
 
 puzzle = convert_puz(puzzle_file)

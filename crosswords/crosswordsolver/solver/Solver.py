@@ -5,7 +5,7 @@ import string
 from scipy.special import softmax
 import numpy as np
 
-from models import answer_clues, setup_closedbook
+from crosswords.crosswordsolver.models import answer_clues, setup_closedbook
 
 class Solver:
     """

@@ -16,25 +16,25 @@ import torch
 from torch import Tensor as T
 from torch import nn
 
-from DPR.dpr.models import init_biencoder_components
-from DPR.dpr.options import setup_args_gpu, print_args, set_encoder_params_from_state 
-from DPR.dpr.indexer.faiss_indexers import DenseIndexer, DenseFlatIndexer
+from crosswords.crosswordsolver.DPR.dpr.models import init_biencoder_components
+from crosswords.crosswordsolver.DPR.dpr.options import setup_args_gpu, print_args, set_encoder_params_from_state 
+from crosswords.crosswordsolver.DPR.dpr.indexer.faiss_indexers import DenseIndexer, DenseFlatIndexer
 #from DPR.dpr.data.reader_data import ReaderSample, ReaderPassage, get_best_spans
 #from DPR.dpr.models import init_reader_components
-from DPR.dpr.utils.data_utils import Tensorizer
-from DPR.dpr.utils.model_utils import load_states_from_checkpoint, get_model_obj
+from crosswords.crosswordsolver.DPR.dpr.utils.data_utils import Tensorizer
+from crosswords.crosswordsolver.DPR.dpr.utils.model_utils import load_states_from_checkpoint, get_model_obj
 
 from transformers import GPT2LMHeadModel, GPT2Tokenizer, T5ForConditionalGeneration, AutoTokenizer
-from segment_fill import segment_fill
+from crosswords.crosswordsolver.segment_fill import segment_fill
 
 SEGMENTER_CACHE = {}
 RERANKER_CACHE = {}
 
 def setup_closedbook(process_id):
     dpr = DPRForCrossword(
-        "checkpoints/biencoder/dpr_biencoder.bin",
-        "checkpoints/biencoder/wordlist.tsv",
-        "checkpoints/biencoder/embeddings/embeddings.json_*",
+        "crosswords/crosswordsolver/checkpoints/biencoder/dpr_biencoder.bin",
+        "crosswords/crosswordsolver/checkpoints/biencoder/wordlist.tsv",
+        "crosswords/crosswordsolver/checkpoints/biencoder/embeddings/embeddings.json_*",
         retrievalmodel=False,
         process_id=process_id
     )
@@ -42,7 +42,7 @@ def setup_closedbook(process_id):
 
 def setup_t5_reranker(process_id):
     tokenizer = AutoTokenizer.from_pretrained('google/byt5-small')
-    model = T5ForConditionalGeneration.from_pretrained('checkpoints/byt5_reranker/')
+    model = T5ForConditionalGeneration.from_pretrained('crosswords/crosswordsolver/checkpoints/byt5_reranker/')
     model.eval().to('cuda:'+str(process_id % torch.cuda.device_count()))
     return model, tokenizer
 

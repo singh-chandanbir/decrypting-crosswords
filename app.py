@@ -1,9 +1,9 @@
 ##### .......................................... Importing Libraries .............................................#####
+from crosswords.crosswordsolver.crosssolve import cross
 from flask import Flask, render_template as rt
 from os import getenv
 from flask_mail import Mail
 from flask_socketio import SocketIO
-
 
 
 ##### .......................................... Flask App .............................................#####
@@ -49,13 +49,9 @@ def about_us():
 
 @app.route('/test' , methods=['GET', 'POST'])
 def test():
-    print(request.method)
-    print(current_user.email)
-    if request.method == 'POST':
-        print(request.form)
-
-
-    return rt('test.html')
+    puzzle_file = './crosswords/crosswordsolver/puzzles/LA_times/20240301.puz'
+    solution = cross(puzzle_file)
+    return solution
 
 #####.......................................... Errors Pages  .............................................#####
 @app.errorhandler(404)

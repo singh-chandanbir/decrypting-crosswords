@@ -1,4 +1,4 @@
-from solver.Utils import clean
+from crosswords.crosswordsolver.solver.Utils import clean
 
 class Crossword:
     """

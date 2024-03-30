@@ -6,6 +6,8 @@ from flask import render_template as rt
 from app import mail
 from flask_mail import Message
 from random import randint
+import datetime
+
 
 
 user = db["users"]
@@ -20,6 +22,7 @@ class User(UserMixin):
         self.crossword_solved = userData['crossword_solved']
         self.activated = userData['activated']
         self.otp = userData['otp']
+        self.date_joined = userData['date_joined']
         
 
     # def set_active(self):
@@ -59,7 +62,7 @@ class User(UserMixin):
             hash_pass =  generate_password_hash(password, method='scrypt')
             otp = randint(1000,9999)
             globalrank = user.count_documents({})
-            new_user = dict( name = name, email = email, password_hash = hash_pass , averagetime = 0, globalrank = globalrank, crossword_solved = 0  , activated = False , otp = otp)
+            new_user = dict( name = name, email = email, password_hash = hash_pass , averagetime = 0, globalrank = globalrank, crossword_solved = 0  , activated = False , otp = otp , date_joined = datetime.datetime.now())
             result = user.insert_one(new_user)
             print("User added with id: ", result.inserted_id)
             msg = Message(subject="hello",sender= getenv('SMTP_USERNAME'), recipients=[email])

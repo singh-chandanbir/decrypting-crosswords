@@ -69,27 +69,3 @@ from crosswords.routes import *
 
 if __name__ == '__main__':
     socketio.run(app ,debug=True)
-
-
-
-def evaluate(self, solution):
-        # print puzzle accuracy results given a generated solution
-        letters_correct = 0
-        letters_total = 0
-        for i in range(len(self.crossword.letter_grid)):
-            for j in range(len(self.crossword.letter_grid[0])):
-                if self.crossword.letter_grid[i][j] != "":
-                    letters_correct += (self.crossword.letter_grid[i][j] == solution[i][j])
-                    letters_total += 1
-        words_correct = 0
-        words_total = 0
-        for var in self.crossword.variables:
-            cells = self.crossword.variables[var]["cells"]
-            matching_cells = [self.crossword.letter_grid[cell[0]][cell[1]] == solution[cell[0]][cell[1]] for cell in cells]
-            if len(cells) == sum(matching_cells):
-                words_correct += 1
-            else:
-                print('evaluation: correct word', ''.join([self.crossword.letter_grid[cell[0]][cell[1]] for cell in cells]), 'our prediction:', ''.join([solution[cell[0]][cell[1]] for cell in cells]))
-            words_total += 1
-        print("Letters Correct: {}/{} | Words Correct: {}/{}".format(int(letters_correct), int(letters_total), int(words_correct), int(words_total)))
-        print("Letters Correct: {}% | Words Correct: {}%".format(float(letters_correct/letters_total*100), float(words_correct/words_total*100)))

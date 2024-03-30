@@ -6,6 +6,7 @@ import json
 import os
 import re
 
+
 puzzle_file = './puzzles/LA_times/20240310.puz'
 
 

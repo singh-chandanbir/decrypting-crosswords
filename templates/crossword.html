@@ -1,5 +1,10 @@
-{% extends "header-footer.html" %} {% block title %}The Playground{% endblock
-title%} {% block content %}
+{% extends "header-footer.html" %}
+{% block title %}The Playground{% endblock title%}
+{% block head %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+{% endblock %}
+{% block content %}
 
 
 <!-- wrapper for crossword and clues -->
@@ -60,12 +65,12 @@ title%} {% block content %}
     <div id="btn-wrapper" class="text-white hidden  flex-row flex-wrap justify-around">
       <button
         class=" py-2 px-5 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 "
-        onclick="clearInterval(timer)">Check All</button>
+        onclick= endgame() >Check All</button>
       <button id="Reveal" onclick="delayedLoop()"
         class="py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5">
         Reveal All
       </button>
-      <button onclick="clearAll()"
+      <button onclick=clearAll()
         class=" py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5">Clear
         All</button>
     </div>
@@ -112,20 +117,18 @@ title%} {% block content %}
   </div>
 </div>
 
-<script>
-  var myList = {{ blocked_cell_list| tojson | safe}};
 
-  let grid = {{ grid | tojson | safe}};
-  let order = {{ order | tojson | safe}};
 
-  for (var i = 0; i < myList.length; i++) {
-    document.getElementById(myList[i]).disabled = true;
-    document.getElementById(myList[i]).closest('td').style.backgroundColor = "black";
-  }
-</script>
-
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"
-  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-<script src="{{url_for('static',filename='./working/crossword.js')}}"></script>
 
 {% endblock content %}
+
+{% block bodyend %}
+<script src="{{url_for('static',filename='./working/gameplaying.js')}}"></script>
+
+<script src="{{url_for('static',filename='./working/crossword.js')}}"></script>
+
+<script>
+ 
+</script>
+
+{% endblock %}

@@ -3,15 +3,19 @@ from crosswords.crosswordsolver.crosssolve import cross
 from flask import Flask, render_template as rt
 from os import getenv
 from flask_mail import Mail
-from flask_cors import CORS
+from flask_socketio import SocketIO
+
 
 ##### .......................................... Flask App .............................................#####
-app=Flask(__name__, static_url_path='/static', static_folder='static')
+app=Flask(__name__)
 app.config['SECRET_KEY'] = getenv("SECRET_KEY")
+socketio = SocketIO(app)
 
-CORS(app, supports_credentials=True , origins=['http://172.16.8.97:5000'])
 
-
+@socketio.on('time')
+def handle_connect(time):
+    client_sid = request.sid
+    print(time)
 ##### .......................................... Mail Configuration .............................................#####
 app.config.update(
     MAIL_SERVER = getenv('SMTP_SERVER'),
@@ -63,3 +67,5 @@ from crosswords.routes import *
 
 
 
+if __name__ == '__main__':
+    socketio.run(app ,debug=True)

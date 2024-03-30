@@ -20,8 +20,8 @@ $(document).ready(function () {
             var currentIndex = $(this).closest("td").index();
             var nextRow = $(this).closest("tr").next("tr");
             var tdofnexttr = nextRow.find("td:eq(" + currentIndex + ")");
-            console.log(typeof tdofnexttr);
-            console.log(tdofnexttr);
+            // console.log(typeof tdofnexttr);
+            // console.log(tdofnexttr);
 
             while (tdofnexttr.length > 0) {
                 if (!tdofnexttr.find("input").prop("disabled")) {

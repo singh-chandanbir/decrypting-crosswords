@@ -15,13 +15,13 @@ import numpy as np
 from scipy.special import log_softmax, softmax
 from tqdm import trange
 
-from solver.Utils import print_grid, get_word_flips
-from solver.Solver import Solver
-from models import setup_t5_reranker, t5_reranker_score_with_clue
+from crosswords.crosswordsolver.solver.Utils import print_grid, get_word_flips
+from crosswords.crosswordsolver.solver.Solver import Solver
+from crosswords.crosswordsolver.models import setup_t5_reranker, t5_reranker_score_with_clue
 
 # our answer set
 answer_set = set()
-with open('checkpoints/biencoder/wordlist.tsv', 'r') as rf: 
+with open('crosswords/crosswordsolver/checkpoints/biencoder/wordlist.tsv', 'r') as rf: 
     for line in rf:
         w = ''.join([c.upper() for c in (line.split('\t')[-1]).upper() if c in string.ascii_uppercase])
         answer_set.add(w)

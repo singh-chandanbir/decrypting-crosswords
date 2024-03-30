@@ -23,8 +23,7 @@ import scipy
 import torch
 from torch import Tensor as T
 from tqdm import tqdm
-
-from DPR.dpr.utils.data_utils import Tensorizer
+from crosswords.crosswordsolver.DPR.dpr.utils.data_utils import Tensorizer
 
 logger = logging.getLogger()
 

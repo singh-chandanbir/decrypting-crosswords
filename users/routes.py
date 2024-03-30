@@ -56,7 +56,6 @@ def otp():
         otp = int(form.otp.data)
         if current_user.otp == otp:
             User.update_activation_status(current_user.email)
-            print("hello")
             print(current_user.email)
             flash('Email confirmed!', 'success')
             return redirect(url_for('dashboard'))

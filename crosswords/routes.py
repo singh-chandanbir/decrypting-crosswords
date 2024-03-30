@@ -1,9 +1,8 @@
-from app import app
+from app import app ,socketio
 from flask import render_template as rt, request
 from flask_login import login_required
-from api.db_crud import puzzle_data,blocked_cells,getgrid
+from crosswords.modal import puzzle_data,blocked_cells,getgrid
 from api.pageIncreDecre import get_all_objects
-from app import socketio
 
 
 

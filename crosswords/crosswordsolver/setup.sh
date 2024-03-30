@@ -15,7 +15,7 @@ wget https://huggingface.co/albertxu/Berkeley-Crossword-Solver/resolve/main/byt5
 wget https://huggingface.co/albertxu/Berkeley-Crossword-Solver/resolve/main/byt5_reranker/tokenizer_config.json -O checkpoints/byt5_reranker/tokenizer_config.json
 wget https://huggingface.co/albertxu/Berkeley-Crossword-Solver/resolve/main/segmenter/pytorch_model.bin -O checkpoints/gpt2_segmenter/pytorch_model.bin
 wget https://huggingface.co/albertxu/Berkeley-Crossword-Solver/resolve/main/segmenter/config.json -O checkpoints/gpt2_segmenter/config.json
-# Download precomputed embeddings
+# Download precomputed embedding
 for i in {0..3}; do
     wget https://huggingface.co/albertxu/Berkeley-Crossword-Solver/resolve/main/biencoder/embeddings/embeddings.json_$i.pkl -O checkpoints/biencoder/embeddings/embeddings.json_$i.pkl
 done

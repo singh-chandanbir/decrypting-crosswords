@@ -1,11 +1,10 @@
-from db.db import db
+from db.db import puzzles
 
-mydb = db
+
 
 
 ### puzzles data and all its funtions
 
-puzzles = mydb["puzzles"]
 
 ##returns the whole puzzle file
 def puzzle_data(crosswordid):

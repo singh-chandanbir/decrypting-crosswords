@@ -1,4 +1,4 @@
-from db.db import db
+from db.db import user
 from flask_login import UserMixin, login_user
 from os import getenv
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -10,7 +10,7 @@ import datetime
 
 
 
-user = db["users"]
+
 
 class User(UserMixin):
     def __init__(self,userData):

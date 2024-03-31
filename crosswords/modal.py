@@ -17,34 +17,44 @@ def puzzle_data(crosswordid):
 def open_cells(data):
     # data = puzzle_data(crosswordid)
     list=[]
+    inputId_clueId = {}
+    
     j=0
     for i in data['entries']:
-
+        temp = []
         direction = i['direction']
         length = i['length']
         position =i['position']
         id_name= "input" + str(position['x']) + '-' +  str(position['y'])
+        temp.append(id_name)
         if id_name not in list:
             list.append(id_name)
+
         j += 1
 
         if direction == "across" :
             next_x_val=position['x']
-            for i in range(length-1):
+            for _ in range(length-1):
                 next_x_val  = next_x_val+1
                 next_id_name= "input" + str(next_x_val) + '-' +str(position['y'])
+                temp.append(next_id_name)
                 if next_id_name not in list:
                     list.append(next_id_name)
 
         if direction == 'down'  :
             next_y_val=position['y']
-            for i in range(length-1):
+            for _ in range(length-1):
                 next_y_val  = next_y_val + 1
                 next_id_name= "input" +  str(position['x']) + '-' +str(next_y_val)
+                temp.append(next_id_name)
                 if next_id_name not in list:
                     list.append(next_id_name)
-       
-    return list
+
+
+        inputId_clueId[i['id']] = temp
+
+        
+    return list ,inputId_clueId
 
 
 
@@ -63,7 +73,7 @@ def all_cells(dimensions):
 def  blocked_cells(data):
 
     all_ids=all_cells(data['dimensions'])
-    not_blocked=open_cells(data)
+    not_blocked , inputId_clueId = open_cells(data)
 
     blocked_cell_list =[]
 
@@ -71,7 +81,7 @@ def  blocked_cells(data):
         if i not in not_blocked:
             blocked_cell_list.append(i)
 
-    return blocked_cell_list
+    return blocked_cell_list , inputId_clueId
 
 
 def getgrid(clue_data):

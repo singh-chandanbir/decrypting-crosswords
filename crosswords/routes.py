@@ -13,7 +13,7 @@ from crosswords.modal import puzzle_data,blocked_cells,getgrid
 @app.route('/veiw_crosswords/<int:page_number>' )
 @login_required
 def veiw_crossword(page_number):
-    
+
     all_objects =[]
     for i in range (10746 ,16746):
         all_objects.append(i)
@@ -47,12 +47,10 @@ def crossword():
             client_sid = request.sid
             socketio.emit( "gameData", {
                 'order':order,
-                'grid':grid,
-                "blocked_cell_list": blocked_cell_list,
                 "inputId_clueId": inputId_clueId
     
         } ,room = client_sid)
             
 
 
-    return rt('crossword.html',  clue_data=clue_data  )
+    return rt('crossword.html', blocked_cell_list = blocked_cell_list, clue_data=clue_data  )

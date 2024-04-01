@@ -19,10 +19,7 @@ socket.on('gameData', function (message) {
     inputId_clueId = message['inputId_clueId'];
     // console.log("inputId_clueId", inputId_clueId)
 
-    for (var i = 0; i < blocked_cell_list.length; i++) {
-        document.getElementById(blocked_cell_list[i]).disabled = true;
-        document.getElementById(blocked_cell_list[i]).closest('td').style.backgroundColor = "black";
-    }
+ 
 
     function handleClick(event) {
 

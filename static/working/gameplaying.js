@@ -14,7 +14,6 @@ socket.on('connect', function () {
 
 socket.on('gameData', function (message) {
 
-    blocked_cell_list = message['blocked_cell_list'];
     grid = message['grid'];
     order = message['order'];
     inputId_clueId = message['inputId_clueId'];
@@ -43,10 +42,9 @@ socket.on('gameData', function (message) {
             if (key === selected_clue) {
                 previosly_target_input = inputId_clueId[key];
                 // console.log(inputId_clueId[key])
+                document.getElementById(inputId_clueId[key][0]).focus();
                 for (var i = 0; i < inputId_clueId[key].length; i++) {
-
                     var target_input = inputId_clueId[key][i];
-
                     document.getElementById(target_input).style.backgroundColor = "yellow";
                 }
             }

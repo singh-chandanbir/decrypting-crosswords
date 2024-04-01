@@ -123,6 +123,11 @@
 {% endblock content %}
 
 {% block bodyend %}
+<script>
+  let blocked_cell_list = {{blocked_cell_list|tojson}};
+
+    
+</script>
 <script src="{{url_for('static',filename='./working/gameplaying.js')}}"></script>
 
 <script src="{{url_for('static',filename='./working/crossword.js')}}"></script>

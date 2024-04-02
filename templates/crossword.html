@@ -17,7 +17,7 @@
   <div class="flex flex-col">
 
     <!-- crossword div -->
-    <div class="crossword-division bg-bg relative">
+    <div class="crossword-division bg-bg relative w-[364px] md:w-[468px] ">
 
       <h2 class=" inline-block m-2 ml-4">{{clue_data.name}}</h2>
       <h3 id="timer" class=" inline-block float-right m-2 mr-4">00:00</h3>
@@ -37,7 +37,7 @@
                 </span>
                 {% endif %} {% endfor %}
 
-                <input id="input{{j}}-{{i}}"
+                <input id="input{{j}}-{{i}}" value=""
                   class="inputbox uppercase w-full border-none h-full text-center bg-transparent text-lg focus-visible:outline focus-visible:outline-4 focus-visible:outline-blue foz-10 focus-visible:bg-yellow-200 focus-visible:z-[3] focus-visible:shadow-sm m-0 relative"
                   type="text" maxlength="1" />
               </td>
@@ -62,10 +62,13 @@
 
     <!-- buttons div -->
 
-    <div id="btn-wrapper" class="text-white hidden  flex-row flex-wrap justify-around">
+    <div id="btn-wrapper" class="text-white hidden w-[364px] md:w-[468px] flex-row flex-wrap justify-around">
       <button
         class=" py-2 px-5 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 "
-        onclick=endgame()>Check All</button>
+        id="Check" >Check All</button>
+        <button
+        class=" py-2 px-5 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 "
+         >Check Selected</button>
       <button id="Reveal" onclick="delayedLoop()"
         class="py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5">
         Reveal All
@@ -125,7 +128,7 @@
 {% block bodyend %}
 <script>
   let blocked_cell_list = {{blocked_cell_list|tojson}};
-
+  let open_cells = {{list_open_cells|tojson}};
     
 </script>
 <script src="{{url_for('static',filename='./working/gameplaying.js')}}"></script>

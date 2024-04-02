@@ -630,16 +630,8 @@ video {
   z-index: 10;
 }
 
-.z-\[100\] {
-  z-index: 100;
-}
-
 .z-\[2\] {
   z-index: 2;
-}
-
-.z-\[4\] {
-  z-index: 4;
 }
 
 .float-right {

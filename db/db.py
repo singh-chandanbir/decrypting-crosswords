@@ -11,7 +11,7 @@ client = MongoClient(uri, server_api=ServerApi('1'))
 db = client["crossword-solver"]
 
 
+
+# Collections 
 user = db["users"]
-
-
 puzzles = db["puzzles"]

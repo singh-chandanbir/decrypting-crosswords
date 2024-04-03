@@ -53,6 +53,12 @@ def about_us():
 #     solution = cross(puzzle_file)
 #     return 
 
+@app.route('/test' , methods=['GET', 'POST'])
+def test():
+    name ="chandan"
+   
+    return rt('upload.html' , name = name )
+
 #####.......................................... Errors Pages  .............................................#####
 @app.errorhandler(404)
 def badlink(e):

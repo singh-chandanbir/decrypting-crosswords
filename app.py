@@ -11,11 +11,6 @@ app=Flask(__name__)
 app.config['SECRET_KEY'] = getenv("SECRET_KEY")
 socketio = SocketIO(app)
 
-
-@socketio.on('time')
-def handle_connect(time):
-    client_sid = request.sid
-    print(time)
 ##### .......................................... Mail Configuration .............................................#####
 app.config.update(
     MAIL_SERVER = getenv('SMTP_SERVER'),
@@ -40,6 +35,7 @@ def synopsis():
 
 @app.route('/contact-us')
 def contact_us():
+    flash("This form is not working yet")
     return rt('contact-us.html')
 
 @app.route('/about-us')
@@ -53,11 +49,6 @@ def about_us():
 #     solution = cross(puzzle_file)
 #     return 
 
-@app.route('/test' , methods=['GET', 'POST'])
-def test():
-    name ="chandan"
-   
-    return rt('upload.html' , name = name )
 
 #####.......................................... Errors Pages  .............................................#####
 @app.errorhandler(404)
@@ -66,9 +57,10 @@ def badlink(e):
 
 
 
-##### .......................................... Importing Routes .............................................#####
+##### .......................................... Importing Routes and Sockets .............................................#####
 from users.routes import *
 from crosswords.routes import *
+import socketIO.sockets as sockets
 
 
 

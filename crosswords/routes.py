@@ -1,8 +1,7 @@
-from app import app ,socketio
-from flask import render_template as rt, request
+from app import app
+from flask import render_template as rt, request , session
 from flask_login import login_required
-from crosswords.modal import puzzle_data, blocked_cells, getgrid, open_cells
-
+from crosswords.modal import puzzle_data, blocked_cells, open_cells
 
      
 
@@ -36,21 +35,11 @@ def veiw_crossword(page_number):
 def crossword():
     if (request.method == "POST"):
         crosswordid = int(request.form.get("crossword-id"))
+        session["crossword_id"] = crosswordid
         clue_data=puzzle_data(crosswordid)
         blocked_cell_list , inputId_clueId = blocked_cells(clue_data)
-        grid , order = getgrid(clue_data)
         list_open_cells , x = open_cells(clue_data)
 
-        @socketio.on('connect')
-        def handle_connect():
-            client_sid = request.sid
-            socketio.emit( "gameData", {
-                'order':order,
-                "inputId_clueId": inputId_clueId,
-                'grid': grid,
-                
-    
-        } ,room = client_sid)
             
 
 

@@ -63,19 +63,28 @@
     <!-- buttons div -->
 
     <div id="btn-wrapper" class="text-white hidden w-[364px] md:w-[468px] flex-row flex-wrap justify-around">
+
       <button
         class=" py-2 px-5 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 "
-        id="Check" >Check All</button>
-        <button
+        onclick=checkAll()>Check All</button>
+
+      <button
         class=" py-2 px-5 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 "
-         >Check Selected</button>
-      <button id="Reveal" onclick="delayedLoop()"
+        onclick=checkSelected()>Check Selected</button>
+
+      <button id="Reveal" onclick=revealAll()
         class="py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5">
         Reveal All
       </button>
+
+      <button onclick=clearSelected()
+        class=" py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5">Clear
+        Selected</button>
+
       <button onclick=clearAll()
         class=" py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5">Clear
         All</button>
+        
     </div>
   </div>
 
@@ -127,9 +136,9 @@
 
 {% block bodyend %}
 <script>
-  let blocked_cell_list = {{blocked_cell_list|tojson}};
-  let open_cells = {{list_open_cells|tojson}};
-    
+  let blocked_cell_list = {{ blocked_cell_list| tojson}};
+  let open_cells = {{ list_open_cells| tojson}};
+
 </script>
 <script src="{{url_for('static',filename='./working/gameplaying.js')}}"></script>
 

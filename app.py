@@ -42,6 +42,10 @@ def contact_us():
 def about_us():
     return rt('about-us.html')
 
+@app.route('/upload')
+def upload():
+    return rt('upload.html')
+
 
 # @app.route('/test' , methods=['GET', 'POST'])
 # def test():

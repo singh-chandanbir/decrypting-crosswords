@@ -42,19 +42,7 @@ def contact_us():
 def about_us():
     return rt('about-us.html')
 
-@app.route('/upload', methods=['GET','POST'])
-def upload_file():
-    print(request.method) 
-    if request.method == 'POST':
-        if 'file' not in request.files:
-            return jsonify({'error': 'No file part'})
-        file = request.files['file']
-        if file.filename == '':
-            return jsonify({'error': 'No selected file'})
-    # Process the file (save it, manipulate it, etc.)
-    # Example: file.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(file.filename)))
-        return jsonify({'success': True})
-    return rt('upload.html')
+
 # @app.route('/test' , methods=['GET', 'POST'])
 # def test():
 #     puzzle_file = './crosswords/crosswordsolver/puzzles/LA_times/20240301.puz'

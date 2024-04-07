@@ -44,3 +44,45 @@ def crossword():
 
 
     return rt('crossword.html', blocked_cell_list = blocked_cell_list, clue_data=clue_data , list_open_cells=list_open_cells )
+
+
+
+# @app.route('/upload', methods=['GET','POST'])
+# def upload_file():
+#     print(request.method) 
+#     if request.method == 'POST':
+#         if 'file' not in request.files:
+#             return jsonify({'error': 'No file part'})
+#         file = request.files['file']
+#         if file.filename == '':
+#             return jsonify({'error': 'No selected file'})
+#     # Process the file (save it, manipulate it, etc.)
+#     # Example: file.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(file.filename)))
+#         return jsonify({'success': True})
+#     return rt('upload.html')
+
+
+from flask_wtf import FlaskForm
+from wtforms import SubmitField
+from flask_wtf.file import FileField, FileRequired
+from werkzeug.utils import secure_filename
+
+class PuzzForm(FlaskForm):
+    puzz = FileField(validators=[FileRequired()])
+    submit = SubmitField("uplaod File")
+
+@app.route('/upload', methods=['GET', 'POST'])
+def upload():
+    form = PuzzForm()
+
+    if form.validate_on_submit():
+        f = form.photo.data
+        print(f)    
+        filename = secure_filename(f.filename)
+        print(filename)
+        return redirect(url_for('homepage'))
+
+
+    return rt('upload.html', form=form)
+
+

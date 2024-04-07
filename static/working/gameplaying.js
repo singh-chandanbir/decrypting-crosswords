@@ -7,6 +7,8 @@ var grid;
 var order;
 var inputId_clueId;
 
+var startTime = null;
+var endTime = null
 
 // // current selected input and direction
 var current_selected_inputs = {};
@@ -37,7 +39,7 @@ function startgame() {
     timer = start_timer();
     makeCluesClickable();
     makeInputClickable();
-    let startTime = new Date().getTime();
+    startTime = new Date().getTime();
     socket.emit('time', { 'startTime': startTime });
 }
 
@@ -228,17 +230,28 @@ function checkAll() {
     for (let i = 0; i < word_list.length; i++) {
         if (word_list[i] === word_list_user[i]) {
             correct_words += 1;
-            
+
         }
     }
 
     console.log("word_list", word_list);
     console.log("word_list_user", word_list_user);
 
+
     console.log("correct_words", correct_words);
     console.log("total_words", word_list.length);
     accuracy = (correct_words / word_list.length) * 100;
     console.log("accuracy", accuracy);
+
+    alert(`You have solved ${correct_words} out of ${word_list.length} words and your accuracy is  ${accuracy}% `);
+    endTime = new Date().getTime();
+
+    console.log("endTime", endTime)
+    console.log("startTime",startTime)
+    let timeTaken = endTime-startTime
+    
+    console.log("time taken" ,timeTaken )
+    socket.emit("revealed", {"timeTaken" :timeTaken} )
 
 
 
@@ -251,8 +264,7 @@ function abortgame() {
 }
 function endgame() {
     stop_timer();
-    let endTime = new Date().getTime();
-    socket.emit('time', { 'endTime': endTime });
+    endTime = new Date().getTime();
 }
 
 function clearAll() {
@@ -268,7 +280,6 @@ function clearSelected() {
         document.getElementById(current_selected_inputs[i]).value = "";
         document.getElementById(current_selected_inputs[i]).style.backgroundColor = "#f7f0a3";
     }
-
     document.getElementById(current_selected_inputs[0]).focus();
     document.getElementById(current_selected_inputs[0]).style.backgroundColor = "yellow";
     current_focused_input_index = 0;
@@ -278,9 +289,14 @@ function clearSelected() {
 
 
 async function revealAll() {
+   
+
+
+
+
+    endgame();
     clearAll();
     var bot = document.getElementById("think");
-    endgame();
 
     bot.style.display = "block";
     console.log(bot)

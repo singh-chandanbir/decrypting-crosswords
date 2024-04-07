@@ -24,8 +24,9 @@
 </div> -->
 
 
-<form action="/upload" method="post">
-    {{ form.csrf_token }}
+<form action="/upload" method="post" enctype="multipart/form-data">
+    {{form.csrf_token }}
+    {{form.puzz.label}}
     {{form.puzz()}}
 
     {{form.submit(type="submit", class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm

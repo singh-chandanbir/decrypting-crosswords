@@ -6,9 +6,6 @@ from db.db import db
 import json
 import os
 import re
-
-puzzle_file = './puzzles/LA_times/20240301.puz'
-
 def cross(puzzle_file):
 
     def solve(crossword):

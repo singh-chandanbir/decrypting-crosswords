@@ -66,6 +66,11 @@ from flask_wtf import FlaskForm
 from wtforms import SubmitField
 from flask_wtf.file import FileField, FileRequired
 from werkzeug.utils import secure_filename
+import os
+from crosswords.crosswordsolver.crosssolve import cross
+
+UPLOAD_FOLDER = 'crosswords/crosswordsolver/uploaded_puzzles'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 class PuzzForm(FlaskForm):
     puzz = FileField(validators=[FileRequired()])
@@ -76,13 +81,15 @@ def upload():
     form = PuzzForm()
 
     if form.validate_on_submit():
-        f = form.photo.data
-        print(f)    
-        filename = secure_filename(f.filename)
-        print(filename)
-        return redirect(url_for('homepage'))
-
-
+        f = form.puzz.data
+        print(f)   
+        if f:
+            filename = secure_filename(f.filename)
+            print(filename)
+            f.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
+        else:
+            return 'Nofile selected'
+        #file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        #solution = cross(file_path)
+        #return solution
     return rt('upload.html', form=form)
-
-

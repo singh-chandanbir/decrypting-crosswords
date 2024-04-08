@@ -1,8 +1,5 @@
 from db.db import puzzles
 
-
-
-
 ### puzzles data and all its funtions
 
 

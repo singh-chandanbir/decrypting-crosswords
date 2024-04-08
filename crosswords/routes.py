@@ -3,11 +3,21 @@ from flask import render_template as rt, request , session
 from flask_login import login_required
 from crosswords.modal import puzzle_data, blocked_cells, open_cells
 
-     
+from werkzeug.utils import secure_filename
+import os
+from crosswords.crossform import PuzzForm
+# from crosswords.crosswordsolver.crosssolve import cross
+
+
+
+
+##### .......................................... upload folder config  .............................................#####
+
+
+app.config['UPLOAD_FOLDER'] = os.getenv('UPLOAD_FOLDER')
+
 
 ##### .......................................... Crossword Routes  .............................................#####
-
-
 
 @app.route('/veiw_crosswords/<int:page_number>' )
 @login_required
@@ -47,34 +57,8 @@ def crossword():
 
 
 
-# @app.route('/upload', methods=['GET','POST'])
-# def upload_file():
-#     print(request.method) 
-#     if request.method == 'POST':
-#         if 'file' not in request.files:
-#             return jsonify({'error': 'No file part'})
-#         file = request.files['file']
-#         if file.filename == '':
-#             return jsonify({'error': 'No selected file'})
-#     # Process the file (save it, manipulate it, etc.)
-#     # Example: file.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(file.filename)))
-#         return jsonify({'success': True})
-#     return rt('upload.html')
 
 
-from flask_wtf import FlaskForm
-from wtforms import SubmitField
-from flask_wtf.file import FileField, FileRequired
-from werkzeug.utils import secure_filename
-import os
-from crosswords.crosswordsolver.crosssolve import cross
-
-UPLOAD_FOLDER = 'crosswords/crosswordsolver/uploaded_puzzles'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-class PuzzForm(FlaskForm):
-    puzz = FileField(validators=[FileRequired()])
-    submit = SubmitField("uplaod File")
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():

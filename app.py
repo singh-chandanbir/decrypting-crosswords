@@ -1,6 +1,5 @@
 ##### .......................................... Importing Libraries .............................................#####
-# from crosswords.crosswordsolver.crosssolve import cross
-from flask import Flask, render_template as rt , jsonify
+from flask import Flask, render_template as rt, flash
 from os import getenv
 from flask_mail import Mail
 from flask_socketio import SocketIO

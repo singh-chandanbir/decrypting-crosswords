@@ -15,3 +15,5 @@ db = client["crossword-solver"]
 # Collections 
 user = db["users"]
 puzzles = db["puzzles"]
+uploaded_puzzles = db['user-uploaded-puzzles']
+solved_puzzles = db['solved-puzzles']

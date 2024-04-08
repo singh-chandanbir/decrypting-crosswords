@@ -36,16 +36,17 @@ socket.on('gameData', function (message) {
 
 
 function startgame() {
-    timer = start_timer();
+    document.getElementById("start-btn-wrapper").style.display = "none";
+    document.getElementById("btn-wrapper").style.display = "flex";
     makeCluesClickable();
     makeInputClickable();
+    timer = start_timer();
     startTime = new Date().getTime();
     socket.emit('time', { 'startTime': startTime });
 }
 
 function makeInputClickable() {
-    document.getElementById("start-btn-wrapper").style.display = "none";
-    document.getElementById("btn-wrapper").style.display = "flex";
+   
 
 
     for (const [key, value] of Object.entries(inputId_clueId)) {
@@ -150,39 +151,7 @@ function stop_timer() {
 }
 
 function checkAll() {
-
-
-    // let correct = true;
-    // let incorrect_words = 0;
-    // let total_words = 0;
-
-    // for (const [key, value] of Object.entries(inputId_clueId)) {
-
-
-    //     for (let i = 0; i < value.length; i++) {
-    //         let id = value[i];
-    //         let temp = id.split("-")[0];
-    //         let x = parseInt(temp.split("input")[1]);
-    //         let y = parseInt(id.split("-")[1]);
-    //         if (document.getElementById(id).value == "") {
-    //             continue;
-    //         }
-    //         else {
-    //             console.log("id", id);  
-    //             if (grid[x][y] != document.getElementById(id).value) {
-    //                 console.log("x,y" ,x ,y)
-    //                 incorrect_words += 1;
-    //                 break;
-    //             }
-
-    //         }
-
-    //     }
-    //     total_words += 1;
-    // }
-    // console.log("total_words", total_words);
-
-    // console.log('incorrect_words', incorrect_words);
+    stop_timer();
     let inputboxs = document.getElementsByClassName("inputbox");
 
     for (const iterator of inputboxs) {
@@ -243,29 +212,24 @@ function checkAll() {
     accuracy = (correct_words / word_list.length) * 100;
     console.log("accuracy", accuracy);
 
-    alert(`You have solved ${correct_words} out of ${word_list.length} words and your accuracy is  ${accuracy}% `);
+    // alert(`You have solved ${correct_words} out of ${word_list.length} words and your accuracy is  ${accuracy}% `);
     endTime = new Date().getTime();
 
     console.log("endTime", endTime)
-    console.log("startTime",startTime)
-    let timeTaken = endTime-startTime
+    console.log("startTime", startTime)
+    let timeTaken = endTime - startTime
+    console.log("time taken", timeTaken)
+
+    document.getElementById("time").innerHTML = timeTaken / 1000 + " seconds";
+    document.getElementById("accuracy").innerHTML = accuracy + "%";
+    document.getElementById("words").innerHTML = correct_words + " out of " + word_list.length;
+    document.getElementById("btn-wrapper").style.display = "none";
+    document.getElementById("btn-wrapper-2").style.display = "flex";
+
+    socket.emit("endgame" , { 'timeTaken': timeTaken , 'accuracy': accuracy , 'words': correct_words })
     
-    console.log("time taken" ,timeTaken )
-    socket.emit("revealed", {"timeTaken" :timeTaken} )
-
-
-
-
-
 }
 
-function abortgame() {
-
-}
-function endgame() {
-    stop_timer();
-    endTime = new Date().getTime();
-}
 
 function clearAll() {
     let inputboxs = document.getElementsByClassName("inputbox");
@@ -289,17 +253,15 @@ function clearSelected() {
 
 
 async function revealAll() {
-   
 
+    alert("Revealing all the answers, are you sure?");
+    stop_timer();
+    document.getElementById("btn-wrapper").style.display = "none";
 
-
-
-    endgame();
     clearAll();
     var bot = document.getElementById("think");
 
     bot.style.display = "block";
-    console.log(bot)
     for (const key in order) {
         let x = order[key][0];
         let y = order[key][1];
@@ -317,4 +279,30 @@ async function revealAll() {
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
+
+function checkSelected() {
+    console.log(current_selected_inputs)
+
+    for (const i in current_selected_inputs) {
+        let id = current_selected_inputs[i];
+        let temp = id.split("-")[0];
+        let x = parseInt(temp.split("input")[1]);
+        let y = parseInt(id.split("-")[1]);
+        if (document.getElementById(id).value == "") {
+            continue;
+        }
+        else {
+            if (grid[x][y] != document.getElementById(id).value) {
+                document.getElementById(id).style.backgroundColor = red;
+            } else {
+                document.getElementById(id).style.backgroundColor = green;
+            }
+        }
+
+    }
+
+
 }

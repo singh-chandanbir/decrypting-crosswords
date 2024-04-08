@@ -2,10 +2,10 @@ from crosswords.crosswordsolver.solver.BPSolver import BPSolver
 from crosswords.crosswordsolver.solver.Crossword import Crossword
 from crosswords.crosswordsolver.solver.Utils import convert_puz
 from crosswords.crosswordsolver.solver.Utils import print_grid
-from db.db import db
-import json
-import os
-import re
+from db.db import uploaded_puzzles
+
+
+
 def cross(puzzle_file):
 
     def solve(crossword):
@@ -19,7 +19,7 @@ def cross(puzzle_file):
         solver.evaluate(solution)
         return solution
 
-    uploaded_puzzles = db['user-uploaded-puzzles']
+    
  
     puzzle = convert_puz(puzzle_file)
     print(type(puzzle))

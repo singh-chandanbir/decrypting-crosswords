@@ -1,4 +1,4 @@
-from db.db import user
+from db.db import user ,solved_puzzles
 from flask_login import UserMixin, login_user
 from os import getenv
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -88,5 +88,9 @@ class User(UserMixin):
             status = False
 
         return responce , status
+    
+    def get_profile_data(email):
+        data = solved_puzzles.find_one({ "email": email })
+        return data
     
                 

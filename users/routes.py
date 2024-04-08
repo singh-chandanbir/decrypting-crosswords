@@ -79,7 +79,8 @@ def logout():
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    return rt('dashbord.html')
+    data = User.get_profile_data(current_user.email)
+    return rt('dashbord.html' , data = data)
 
 
 

@@ -1,26 +1,107 @@
-{% extends "header-footer.html" %}
-{% block title %}The Playground{% endblock title%}
-{% block head %}
+{% extends "header-footer.html" %} {% block title %}The Playground{% endblock
+title%} {% block head %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
   integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
   crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"
   integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-{% endblock %}
-{% block content %}
+{% endblock %} {% block content %}
 
+<!-- drawer init and toggle -->
+
+<!-- drawer component -->
+<div id="drawer-top-example"
+  class="fixed top-0 left-0 right-0 z-40 w-full p-4 transition-transform -translate-y-full bg-white dark:bg-gray-800"
+  tabindex="-1" aria-labelledby="drawer-top-label">
+  <h5 id="drawer-top-label"
+    class="inline-flex items-center mb-4 text-base font-semibold text-gray-500 dark:text-gray-400">
+    User Stats:
+  </h5>
+  <button type="button" data-drawer-hide="drawer-top-example" aria-controls="drawer-top-example"
+    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white">
+    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+    </svg>
+    <span class="sr-only">Close menu</span>
+  </button>
+
+  <!-- outer wrapper -->
+  <div class="flex justify-evenly items-center">
+    <!-- child indevidual componets -->
+    <div class="flex justify-center items-center">
+      <svg class="w-12 h-12" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M4.51555 7C3.55827 8.4301 3 10.1499 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3V6M12 12L8 8"
+          class="stroke-slate-900 dark:stroke-slate-300" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" />
+      </svg>
+      <div class="dark:text-slate-100">
+        <span>Time taken to solve:</span>
+        <div>
+          <span id="time"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- child indevidual componets -->
+
+    <!-- child indevidual componets -->
+
+    <div class="flex justify-center items-center">
+      <svg class="dark:fill-slate-300 w-12 h-12" width="800px" height="800px" viewBox="0 0 200 200" data-name="Layer 1"
+        id="Layer_1" xmlns="http://www.w3.org/2000/svg">
+        <title />
+        <path
+          d="M100,15a85,85,0,1,0,85,85A84.93,84.93,0,0,0,100,15Zm0,150a65,65,0,1,1,65-65A64.87,64.87,0,0,1,100,165Zm25-91.5-29,35L76,94c-4.5-3.5-10.5-2.5-14,2s-2.5,10.5,2,14c6,4.5,12.5,9,18.5,13.5,4.5,3,8.5,7.5,14,8,1.5,0,3.5,0,5-1l3-3,22.5-27c4-5,8-9.5,12-14.5,3-4,4-9,.5-13L138,71.5c-3.5-2.5-9.5-2-13,2Z" />
+      </svg>
+      <div class="stroke-slate-900 dark:text-slate-100">
+        <span>No. of correct words:</span>
+        <div>
+          <span id="words"></span>
+        </div>
+      </div>
+    </div>
+    <!-- child indevidual componets -->
+
+    <!-- child indevidual componets -->
+    <div class="flex justify-center items-center">
+      <svg width="800px" height="800px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink" class="w-12 h-12 fill-current">
+        <title>aiming_line</title>
+        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+          <g id="Map" transform="translate(-528.000000, 0.000000)" fill-rule="nonzero">
+            <g id="aiming_line" transform="translate(528.000000, 0.000000)">
+              <path
+                d="M24,0 L24,24 L0,24 L0,0 L24,0 Z M12.5934901,23.257841 L12.5819402,23.2595131 L12.5108777,23.2950439 L12.4918791,23.2987469 L12.4918791,23.2987469 L12.4767152,23.2950439 L12.4056548,23.2595131 C12.3958229,23.2563662 12.3870493,23.2590235 12.3821421,23.2649074 L12.3780323,23.275831 L12.360941,23.7031097 L12.3658947,23.7234994 L12.3769048,23.7357139 L12.4804777,23.8096931 L12.4953491,23.8136134 L12.4953491,23.8136134 L12.5071152,23.8096931 L12.6106902,23.7357139 L12.6232938,23.7196733 L12.6232938,23.7196733 L12.6266527,23.7031097 L12.609561,23.275831 C12.6075724,23.2657013 12.6010112,23.2592993 12.5934901,23.257841 L12.5934901,23.257841 Z M12.8583906,23.1452862 L12.8445485,23.1473072 L12.6598443,23.2396597 L12.6498822,23.2499052 L12.6498822,23.2499052 L12.6471943,23.2611114 L12.6650943,23.6906389 L12.6699349,23.7034178 L12.6699349,23.7034178 L12.678386,23.7104931 L12.8793402,23.8032389 C12.8914285,23.8068999 12.9022333,23.8029875 12.9078286,23.7952264 L12.9118235,23.7811639 L12.8776777,23.1665331 C12.8752882,23.1545897 12.8674102,23.1470016 12.8583906,23.1452862 L12.8583906,23.1452862 Z M12.1430473,23.1473072 C12.1332178,23.1423925 12.1221763,23.1452606 12.1156365,23.1525954 L12.1099173,23.1665331 L12.0757714,23.7811639 C12.0751323,23.7926639 12.0828099,23.8018602 12.0926481,23.8045676 L12.108256,23.8032389 L12.3092106,23.7104931 L12.3186497,23.7024347 L12.3186497,23.7024347 L12.3225043,23.6906389 L12.340401,23.2611114 L12.337245,23.2485176 L12.337245,23.2485176 L12.3277531,23.2396597 L12.1430473,23.1473072 Z"
+                id="MingCute" fill-rule="nonzero"></path>
+              <path
+                d="M12,2 C12.5523,2 13,2.44772 13,3 L13,3.05493 C17.1716,3.51608 20.4839,6.82838 20.9451,11 L21,11 C21.5523,11 22,11.4477 22,12 C22,12.5523 21.5523,13 21,13 L20.9451,13 C20.4839,17.1716 17.1716,20.4839 13,20.9451 L13,21 C13,21.5523 12.5523,22 12,22 C11.4477,22 11,21.5523 11,21 L11,20.9451 C6.82838,20.4839 3.51608,17.1716 3.05493,13 L3,13 C2.44772,13 2,12.5523 2,12 C2,11.4477 2.44772,11 3,11 L3.05493,11 C3.51608,6.82838 6.82838,3.51608 11,3.05493 L11,3 C11,2.44772 11.4477,2 12,2 Z M13,5.07089 L13,6 C13,6.55228 12.5523,7 12,7 C11.48715,7 11.0644908,6.61395571 11.0067275,6.11662025 L11,6 L11,5.07089 C8.01946806,5.49721917 5.64461165,7.80112549 5.11200181,10.746038 L5.07089,11 L6,11 C6.55228,11 7,11.4477 7,12 C7,12.51285 6.61395571,12.9355092 6.11662025,12.9932725 L6,13 L5.07089,13 C5.49721917,15.9805417 7.80112549,18.3553889 10.746038,18.887989 L11,18.9291 L11,18 C11,17.4477 11.4477,17 12,17 C12.51285,17 12.9355092,17.386027 12.9932725,17.8833761 L13,18 L13,18.9291 C15.9805417,18.5027806 18.3553889,16.198884 18.887989,13.2539628 L18.9291,13 L18,13 C17.4477,13 17,12.5523 17,12 C17,11.48715 17.386027,11.0644908 17.8833761,11.0067275 L18,11 L18.9291,11 C18.5027806,8.01946806 16.198884,5.64461165 13.2539628,5.11200181 L13,5.07089 Z M12,10.5 C12.8284,10.5 13.5,11.1716 13.5,12 C13.5,12.8284 12.8284,13.5 12,13.5 C11.1716,13.5 10.5,12.8284 10.5,12 C10.5,11.1716 11.1716,10.5 12,10.5 Z"
+                id="形状" class="stroke-slate-900 dark:fill-slate-300"></path>
+            </g>
+          </g>
+        </g>
+      </svg>
+      <div class="dark:text-slate-100">
+        <span>Accuracy:</span>
+        <div>
+          <span id="accuracy"></span>
+        </div>
+      </div>
+    </div>
+    <!-- child indevidual componets -->
+  </div>
+  <!-- outer wrapper -->
+</div>
 
 <!-- wrapper for crossword and clues -->
 <div class="flex justify-around flex-wrap m-5">
-
   <!-- left side -->
   <div class="flex flex-col">
-
     <!-- crossword div -->
-    <div class="crossword-division bg-bg relative w-[364px] md:w-[468px] ">
-
-      <h2 class=" inline-block m-2 ml-4">{{clue_data.name}}</h2>
-      <h3 id="timer" class=" inline-block float-right m-2 mr-4">00:00</h3>
+    <div class="crossword-division bg-bg relative w-[364px] md:w-[468px]">
+      <h2 class="inline-block m-2 ml-4">{{clue_data.name}}</h2>
+      <h3 id="timer" class="inline-block float-right m-2 mr-4">00:00</h3>
 
       <form class="bg-yellow">
         <table class="box-border border-gray-700 border-2 border-spacing-[0px]">
@@ -31,7 +112,8 @@
 
               <td id="cell{{j}}-{{i}}"
                 class="cell border-[1px] h-7 w-7 md:w-9 md:h-9 relative bg-transparent border-black">
-                {% for item in clue_data.entries %} {% if ( item.position.x == j) and ( item.position.y == i) %}
+                {% for item in clue_data.entries %} {% if ( item.position.x ==
+                j) and ( item.position.y == i) %}
                 <span id="text{{j}}-{{i}}" class="text z-[2] max-h-0 absolute text-[6px] sm:text-[10px] text-gray-500">
                   {{item.number}}
                 </span>
@@ -52,10 +134,11 @@
 
     <div id="start-btn-wrapper"
       class="text-white h-[364px] z-10 w-[364px] md:w-[468px] md:h-[468px] flex flex-row flex-wrap justify-around items-center absolute">
-      <div class="w-full h-full top-[40px] flex justify-center items-center  bg-slate-500/75 relative ">
+      <div class="w-full h-full top-[40px] flex justify-center items-center bg-slate-500/75 relative">
         <button
-          class=" py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5 opacity-100 absolute"
-          onclick=startgame()>Start
+          class="py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5 opacity-100 absolute"
+          onclick="startgame()">
+          Start Game
         </button>
       </div>
     </div>
@@ -63,31 +146,47 @@
     <!-- buttons div -->
 
     <div id="btn-wrapper" class="text-white hidden w-[364px] md:w-[468px] flex-row flex-wrap justify-around">
+      <button
+        class="py-2 px-5 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105"
+        onclick="checkAll()" data-drawer-target="drawer-top-example" data-drawer-show="drawer-top-example"
+        data-drawer-placement="top" aria-controls="drawer-top-example">
+        Check All and Finish
+      </button>
 
       <button
-        class=" py-2 px-5 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 "
-        onclick=checkAll()>Check All</button>
+        class="py-2 px-5 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105"
+        onclick="checkSelected()">
+        Check Selected
+      </button>
 
-      <button
-        class=" py-2 px-5 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 "
-        onclick=checkSelected()>Check Selected</button>
-
-      <button id="Reveal" onclick=revealAll()
+      <button onclick="revealAll()"
         class="py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5">
         Reveal All
       </button>
 
-      <button onclick=clearSelected()
-        class=" py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5">Clear
-        Selected</button>
+      <button onclick="clearSelected()"
+        class="py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5">
+        Clear Selected
+      </button>
 
-      <button onclick=clearAll()
-        class=" py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5">Clear
-        All</button>
-        
+      <button onclick="clearAll()"
+        class="py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5">
+        Clear All
+      </button>
+
+
+    </div>
+
+    <div id="btn-wrapper-2" class="text-white hidden w-[364px] md:w-[468px] flex-row flex-wrap justify-center items-center">
+      <button id="show-stats"
+        class="py-2  text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5"
+        data-drawer-target="drawer-top-example" data-drawer-show="drawer-top-example" data-drawer-placement="top"
+        aria-controls="drawer-top-example">
+        Show Stats
+      </button>
+
     </div>
   </div>
-
 
   <!-- right side  -->
   <div class="clue flex justify-between flex-wrap text-blue">
@@ -98,9 +197,7 @@
 
         <li class="m-3 hover:underline">
           <div tabindex="1">
-            <div class="{{item.id}}">
-              {{item.number}}:{{item.clue}}
-            </div>
+            <div class="{{item.id}}">{{item.number}}:{{item.clue}}</div>
           </div>
         </li>
         {% endif %} {%endfor%}
@@ -113,9 +210,7 @@
         {%for item in clue_data.entries%} {% if item.direction == 'down' %}
         <li class="mt-3 hover:underline">
           <div tabindex="1">
-            <div class="{{item.id}}">
-              {{item.number}}:{{item.clue}}
-            </div>
+            <div class="{{item.id}}">{{item.number}}:{{item.clue}}</div>
           </div>
         </li>
         {% endif %} {%endfor%}
@@ -129,23 +224,15 @@
   </div>
 </div>
 
-
-
-
-{% endblock content %}
-
-{% block bodyend %}
+{% endblock content %} {% block bodyend %}
 <script>
   let blocked_cell_list = {{ blocked_cell_list| tojson}};
   let open_cells = {{ list_open_cells| tojson}};
-
 </script>
 <script src="{{url_for('static',filename='./working/gameplaying.js')}}"></script>
 
 <script src="{{url_for('static',filename='./working/crossword.js')}}"></script>
 
-<script>
-
-</script>
+<script></script>
 
 {% endblock %}

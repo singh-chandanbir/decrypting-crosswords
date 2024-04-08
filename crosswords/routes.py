@@ -67,7 +67,7 @@ from wtforms import SubmitField
 from flask_wtf.file import FileField, FileRequired
 from werkzeug.utils import secure_filename
 import os
-# from crosswords.crosswordsolver.crosssolve import cross
+from crosswords.crosswordsolver.crosssolve import cross
 
 UPLOAD_FOLDER = 'crosswords/crosswordsolver/uploaded_puzzles'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -88,7 +88,8 @@ def upload():
             f.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
         else:
             return 'Nofile selected'
-        #file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        #solution = cross(file_path)
-        #return solution
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        solution = cross(file_path)
+        print(solution)
+        return solution
     return rt('upload.html', form=form)

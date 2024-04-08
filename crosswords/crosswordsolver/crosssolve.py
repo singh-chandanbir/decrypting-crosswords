@@ -9,8 +9,8 @@ import re
 def cross(puzzle_file):
 
     def solve(crossword):
-        solver = BPSolver(crossword, max_candidates=500000)
-        solution = solver.solve(num_iters=10, iterative_improvement_steps=5)
+        solver = BPSolver(crossword, max_candidates=5000)
+        solution = solver.solve(num_iters=5, iterative_improvement_steps=3)
         print("* Solver Output *")
         print(solution)
         print_grid(solution)

@@ -43,11 +43,6 @@ def about_us():
     return rt('about-us.html')
 
 
-# @app.route('/test' , methods=['GET', 'POST'])
-# def test():
-#     puzzle_file = './crosswords/crosswordsolver/puzzles/LA_times/20240301.puz'
-#     solution = cross(puzzle_file)
-#     return 
 
 
 #####.......................................... Errors Pages  .............................................#####

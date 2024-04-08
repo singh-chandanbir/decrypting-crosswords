@@ -82,10 +82,9 @@ def upload():
 
     if form.validate_on_submit():
         f = form.puzz.data
-        print(f)   
+        print(f)
         if f:
             filename = secure_filename(f.filename)
-            print(filename)
             f.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
         else:
             return 'Nofile selected'

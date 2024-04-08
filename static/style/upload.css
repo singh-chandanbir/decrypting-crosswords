@@ -41,3 +41,53 @@
   /* display: none; */
 /* } */
 /* Styles for upload form section */
+/* Styles for upload form section */
+/* Styles for wrapper container */
+
+.upload-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.wrapper-input {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+/* Style for form labels */
+.form-label {
+  display: inline;
+  margin-bottom: 10px;
+  color: white;
+  font-weight: bold;
+}
+
+/* Style for form inputs */
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Style for submit button */
+.submit-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px; /* Adjust margin for spacing */
+  margin-left: 10px;
+}
+
+/* Hover effect for submit button */
+.submit-btn:hover {
+  background-color: #45a049;
+}
+
+

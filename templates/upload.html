@@ -23,16 +23,15 @@
     </form>
 </div> -->
 
-
-<form action="/upload" method="post" enctype="multipart/form-data">
-    {{form.csrf_token }}
-    {{form.puzz.label}}
-    {{form.puzz()}}
-
-    {{form.submit(type="submit", class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm
-                    rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700
-                    dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
-                    dark:focus:border-blue-500")}}
+<div class = wrapper-input>
+<form action="/upload" method="post" enctype="multipart/form-data" class="upload-form">
+    {{ form.csrf_token }}
+    <div class="form-group">
+        {{ form.puzz.label(class="form-label") }}
+        {{ form.puzz(class="form-control") }}
+    </div>
+    <button type="submit" class="submit-btn">Upload</button>
 </form>
+</div>
 
 {% endblock content %}

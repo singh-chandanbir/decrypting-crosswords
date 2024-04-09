@@ -1,143 +1,179 @@
 {% extends "header-footer.html" %} {% block title %}The Playground{% endblock
-    title%} {% block head %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
-      integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
-      crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    {% endblock %} {% block content %}
-    
+title%} {% block head %}
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
+  integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+  crossorigin="anonymous"
+></script>
+{% endblock %} {% block content %}
 
-    <!-- wrapper for crossword and clues -->
-    <div class="flex justify-around flex-wrap m-5">
-      <!-- left side -->
-      <div class="flex flex-col">
-        <!-- crossword div -->
-        <div class="crossword-division bg-bg relative w-[364px] md:w-[468px]">
-          <h2 class="inline-block m-2 ml-4">{{clue_data.name}}</h2>
-          <h3 id="timer" class="inline-block float-right m-2 mr-4">00:00</h3>
-    
-          <form class="bg-yellow">
-            <table class="box-border border-gray-700 border-2 border-spacing-[0px]">
-              <tbody class="border-inherit">
-                {% for i in range(puzzle.metadata.cols)%}
-                <tr>
-                  {% for j in range(puzzle.metadata.rows)%}
-    
-                  <td id="cell{{j}}-{{i}}"
-                    class="cell border-[1px] h-7 w-7 md:w-9 md:h-9 relative bg-transparent border-black">
-                    {% for item in clue_data.entries %} {% if ( item.position.x ==
-                    j) and ( item.position.y == i) %}
-                    <span id="text{{j}}-{{i}}" class="text z-[2] max-h-0 absolute text-[6px] sm:text-[10px] text-gray-500">
-                      {{item.number}}
-                    </span>
-                    {% endif %} {% endfor %}
-    
-                    <input id="input{{j}}-{{i}}" value=""
-                      class="inputbox uppercase w-full border-none h-full text-center bg-transparent text-lg focus-visible:outline focus-visible:outline-4 focus-visible:outline-blue foz-10 focus-visible:bg-yellow-200 focus-visible:z-[3] focus-visible:shadow-sm m-0 relative"
-                      type="text" maxlength="1" />
-                  </td>
-    
-                  {% endfor %}
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          </form>
-        </div>
-    
-        <div id="start-btn-wrapper"
-          class="text-white h-[364px] z-10 w-[364px] md:w-[468px] md:h-[468px] flex flex-row flex-wrap justify-around items-center absolute">
-          <div class="w-full h-full top-[40px] flex justify-center items-center bg-slate-500/75 relative">
-            <button
-              class="py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5 opacity-100 absolute"
-              onclick="startgame()">
-              Start Game
-            </button>
+<!-- wrapper for crossword and clues -->
+<div class="flex justify-around flex-wrap m-5">
+  <!-- left side -->
+  <div class="flex flex-col">
+    <!-- crossword div -->
+    <div class="crossword-division bg-bg relative w-[364px] md:w-[468px]">
+      <h2 class="inline-block m-2 ml-4">{{clue_data.name}}</h2>
+      <h3 id="timer" class="inline-block float-right m-2 mr-4">00:00</h3>
+
+      <form class="bg-yellow">
+        <table class="box-border border-gray-700 border-2 border-spacing-[0px]">
+          <tbody class="border-inherit">
+            {% for row in solution%}
+            <tr>
+              {% for i in row %}
+
+              <td
+                class="cell border-[1px] h-7 w-7 md:w-9 md:h-9 relative bg-transparent border-black"
+              >
+                {% if ( i == "") %}
+                <input
+                  value=""
+                  class="inputbox uppercase w-full border-none h-full text-center bg-black text-lg focus-visible:outline focus-visible:outline-4 focus-visible:outline-blue foz-10 focus-visible:bg-yellow-200 focus-visible:z-[3] focus-visible:shadow-sm m-0 relative"
+                  type="text"
+                  maxlength="1"
+                />
+
+                {% else %}
+                <inputs
+                  value="{{i}}"
+                  class="inputbox uppercase w-full border-none h-full text-center bg-transparent text-lg focus-visible:outline focus-visible:outline-4 focus-visible:outline-blue foz-10 focus-visible:bg-yellow-200 focus-visible:z-[3] focus-visible:shadow-sm m-0 relative"
+                  type="text"
+                  maxlength="1"
+                />
+
+                {% endif %}
+              </td>
+
+              {% endfor %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </form>
+    </div>
+
+    <div
+      id="start-btn-wrapper"
+      class="text-white h-[364px] z-10 w-[364px] md:w-[468px] md:h-[468px] flex flex-row flex-wrap justify-around items-center absolute"
+    >
+      <div
+        class="w-full h-full top-[40px] flex justify-center items-center bg-slate-500/75 relative"
+      >
+        <button
+          class="py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5 opacity-100 absolute"
+          onclick="startgame()"
+        >
+          Start Game
+        </button>
+      </div>
+    </div>
+
+    <!-- buttons div -->
+
+    <div
+      id="btn-wrapper"
+      class="text-white hidden w-[364px] md:w-[468px] flex-row flex-wrap justify-around"
+    >
+      <button
+        class="py-2 px-5 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105"
+        onclick="checkAll()"
+        data-drawer-target="drawer-top-example"
+        data-drawer-show="drawer-top-example"
+        data-drawer-placement="top"
+        aria-controls="drawer-top-example"
+      >
+        Check All and Finish
+      </button>
+
+      <button
+        class="py-2 px-5 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105"
+        onclick="checkSelected()"
+      >
+        Check Selected
+      </button>
+
+      <button
+        onclick="revealAll()"
+        class="py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5"
+      >
+        Reveal All
+      </button>
+
+      <button
+        onclick="clearSelected()"
+        class="py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5"
+      >
+        Clear Selected
+      </button>
+
+      <button
+        onclick="clearAll()"
+        class="py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5"
+      >
+        Clear All
+      </button>
+    </div>
+
+    <div
+      id="btn-wrapper-2"
+      class="text-white hidden w-[364px] md:w-[468px] flex-row flex-wrap justify-center items-center"
+    >
+      <button
+        id="show-stats"
+        class="py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5"
+        data-drawer-target="drawer-top-example"
+        data-drawer-show="drawer-top-example"
+        data-drawer-placement="top"
+        aria-controls="drawer-top-example"
+      >
+        Show Stats
+      </button>
+    </div>
+  </div>
+
+  <!-- right side  -->
+  <div class="clue flex justify-between flex-wrap text-blue">
+    <div class="across-clue w-80 m-2">
+      <h3>Across</h3>
+      <ul class="flex flex-col justify-between">
+        {%for item in clue_data.entries%} {% if item.direction == 'across' %}
+
+        <li class="m-3 hover:underline">
+          <div tabindex="1">
+            <div class="{{item.id}}">{{item.number}}:{{item.clue}}</div>
           </div>
-        </div>
-    
-        <!-- buttons div -->
-    
-        <div id="btn-wrapper" class="text-white hidden w-[364px] md:w-[468px] flex-row flex-wrap justify-around">
-          <button
-            class="py-2 px-5 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105"
-            onclick="checkAll()" data-drawer-target="drawer-top-example" data-drawer-show="drawer-top-example"
-            data-drawer-placement="top" aria-controls="drawer-top-example">
-            Check All and Finish
-          </button>
-    
-          <button
-            class="py-2 px-5 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105"
-            onclick="checkSelected()">
-            Check Selected
-          </button>
-    
-          <button onclick="revealAll()"
-            class="py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5">
-            Reveal All
-          </button>
-    
-          <button onclick="clearSelected()"
-            class="py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5">
-            Clear Selected
-          </button>
-    
-          <button onclick="clearAll()"
-            class="py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5">
-            Clear All
-          </button>
-    
-    
-        </div>
-    
-        <div id="btn-wrapper-2" class="text-white hidden w-[364px] md:w-[468px] flex-row flex-wrap justify-center items-center">
-          <button id="show-stats"
-            class="py-2  text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5"
-            data-drawer-target="drawer-top-example" data-drawer-show="drawer-top-example" data-drawer-placement="top"
-            aria-controls="drawer-top-example">
-            Show Stats
-          </button>
-    
-        </div>
-      </div>
-    
-      <!-- right side  -->
-      <div class="clue flex justify-between flex-wrap text-blue">
-        <div class="across-clue w-80 m-2">
-          <h3>Across</h3>
-          <ul class="flex flex-col justify-between">
-            {%for item in clue_data.entries%} {% if item.direction == 'across' %}
-    
-            <li class="m-3 hover:underline">
-              <div tabindex="1">
-                <div class="{{item.id}}">{{item.number}}:{{item.clue}}</div>
-              </div>
-            </li>
-            {% endif %} {%endfor%}
-          </ul>
-        </div>
-    
-        <div class="down-clue m-2 w-80">
-          <h3>Down</h3>
-          <ul class="flex flex-col justify-between">
-            {%for item in clue_data.entries%} {% if item.direction == 'down' %}
-            <li class="mt-3 hover:underline">
-              <div tabindex="1">
-                <div class="{{item.id}}">{{item.number}}:{{item.clue}}</div>
-              </div>
-            </li>
-            {% endif %} {%endfor%}
-          </ul>
-        </div>
-      </div>
+        </li>
+        {% endif %} {%endfor%}
+      </ul>
     </div>
-    <div id="think" class="hidden">
-      <div class="absolute bottom-6 right-6 animate-floating">
-        <img class="w-[100vw] sm:w-[50vw]" src="{{url_for('static', filename = 'assets/images/think.png')}}" />
-      </div>
+
+    <div class="down-clue m-2 w-80">
+      <h3>Down</h3>
+      <ul class="flex flex-col justify-between">
+        {%for item in clue_data.entries%} {% if item.direction == 'down' %}
+        <li class="mt-3 hover:underline">
+          <div tabindex="1">
+            <div class="{{item.id}}">{{item.number}}:{{item.clue}}</div>
+          </div>
+        </li>
+        {% endif %} {%endfor%}
+      </ul>
     </div>
-    
-    {% endblock content %} {% block bodyend %}
-    
-    {% endblock %}
+  </div>
+</div>
+<div id="think" class="hidden">
+  <div class="absolute bottom-6 right-6 animate-floating">
+    <img
+      class="w-[100vw] sm:w-[50vw]"
+      src="{{url_for('static', filename = 'assets/images/think.png')}}"
+    />
+  </div>
+</div>
+
+{% endblock content %} {% block bodyend %} {% endblock %}

@@ -7,6 +7,7 @@ from werkzeug.utils import secure_filename
 import os
 from crosswords.crossform import PuzzForm
 from crosswords.crosswordsolver.crosssolve import cross
+from flask_login import login_required
 
 
 
@@ -59,7 +60,7 @@ def crossword():
 
 
 
-
+@login_required
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():
     form = PuzzForm()

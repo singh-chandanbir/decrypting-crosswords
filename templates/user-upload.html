@@ -24,12 +24,22 @@ title%} {% block head %}
             {% for row in solution%}
             <tr>
               {% for i in row %}
+              {% if i == "" %}
+              <td
+                class="cell border-[1px] h-7 w-7 md:w-9 md:h-9 relative bg-black border-black"
+                >
+                {{i}}
+              </td>
+              {% else %}
+
+
 
               <td
                 class="cell border-[1px] h-7 w-7 md:w-9 md:h-9 relative bg-transparent border-black"
                 >
                 {{i}}
               </td>
+              {% endif %}
 
               {% endfor %}
             </tr>

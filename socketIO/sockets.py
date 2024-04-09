@@ -52,6 +52,7 @@ def handle_game_end(data):
             total_words_pridicted += words
             averageTime = (averageTime + timeTaken) / 2
             averageAccuarcy = (averageAccuarcy + accuarcy) / 2
+            averageAccuarcy =   round(averageAccuarcy, 2)
 
             myquery = { "email": email }
             newvalues = { "$set": { "crossword_solved": crossword_solved_list , "averageTime": averageTime , "averageAccuarcy": averageAccuarcy , "total_words_pridicted": total_words_pridicted } }

@@ -3,7 +3,7 @@ from crosswords.crosswordsolver.solver.Crossword import Crossword
 from crosswords.crosswordsolver.solver.Utils import convert_puz
 from crosswords.crosswordsolver.solver.Utils import print_grid
 from db.db import uploaded_puzzles
-
+from flask_login import current_user
 
 
 def cross(puzzle_file):
@@ -23,6 +23,12 @@ def cross(puzzle_file):
  
     puzzle = convert_puz(puzzle_file)
     print(type(puzzle))
+
+    id = uploaded_puzzles.count_documents({}) + 1
+
+
+  
+    puzzle.update({"crosswordid": id  , "uploader": current_user.email})
     print(puzzle)
     result = uploaded_puzzles.insert_one(puzzle)
     crossword = Crossword(puzzle)

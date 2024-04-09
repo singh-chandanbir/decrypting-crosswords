@@ -55,54 +55,6 @@ title%} {% block head %}
       </form>
     </div>
 
-    <div
-      id="start-btn-wrapper"
-      class="text-white h-[364px] z-10 w-[364px] md:w-[468px] md:h-[468px] flex flex-row flex-wrap justify-around items-center absolute"
-    >
-      <div
-        class="w-full h-full top-[40px] flex justify-center items-center bg-slate-500/75 relative"
-      >
-        <button
-          class="py-2 text-sm m-2 font-medium text-center bg-blue rounded-lg hover:bg-slate-400 hover:scale-105 px-5 opacity-100 absolute"
-          onclick="startgame()"
-        >
-          Start Game
-        </button>
-      </div>
-    </div>
-
-    <!-- right side  -->
-    <div class="clue flex justify-between flex-wrap text-blue">
-      <div class="across-clue w-80 m-2">
-        <h3>Across</h3>
-        <ul class="flex flex-col justify-between">
-          {%for [key , value] in puzzle.clues.across%}
-
-          <li class="m-3 hover:underline">
-            <div tabindex="1">
-              <div>{{keu}}:{{value}}</div>
-            </div>
-          </li>
-          {%endfor%}
-        </ul>
-      </div>
-      <div class="across-clue w-80 m-2">
-        <h3>Down</h3>
-        <ul class="flex flex-col justify-between">
-          {%for [key , value] in puzzle.clues.down%}
-
-          <li class="m-3 hover:underline">
-            <div tabindex="1">
-              <div>{{key}}:{{value}}</div>
-            </div>
-          </li>
-          {%endfor%}
-        </ul>
-      </div>
-
-      
-    </div>
   </div>
-
-  {% endblock content %} {% block bodyend %} {% endblock %}
 </div>
+{% endblock content %} {% block bodyend %} {% endblock %}

@@ -73,7 +73,7 @@ def upload():
         else:
             return 'Nofile selected'
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        solution = cross(file_path)
+        solution , puzzle = cross(file_path)
         print(solution)
-        return solution
-    return rt('upload.html', form=form)
+        return rt("user-upload.html", solution = solution)
+    return rt('upload.html', form=form , puzzle = puzzle)

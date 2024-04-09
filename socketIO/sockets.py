@@ -51,6 +51,8 @@ def handle_game_end(data):
             total_words_pridicted = exist["total_words_pridicted"]
             total_words_pridicted += words
             averageTime = (averageTime + timeTaken) / 2
+            averageTime = round(averageTime , 2)
+            
             averageAccuarcy = (averageAccuarcy + accuarcy) / 2
             averageAccuarcy =   round(averageAccuarcy, 2)
 

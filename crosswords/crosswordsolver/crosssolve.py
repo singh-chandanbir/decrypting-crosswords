@@ -33,4 +33,4 @@ def cross(puzzle_file):
     result = uploaded_puzzles.insert_one(puzzle)
     crossword = Crossword(puzzle)
     solution = solve(crossword)
-    return solution
+    return solution ,puzzle

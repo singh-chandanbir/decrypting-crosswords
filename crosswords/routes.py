@@ -6,7 +6,7 @@ from crosswords.modal import puzzle_data, blocked_cells, open_cells
 from werkzeug.utils import secure_filename
 import os
 from crosswords.crossform import PuzzForm
-# from crosswords.crosswordsolver.crosssolve import cross
+from crosswords.crosswordsolver.crosssolve import cross
 
 
 
@@ -75,5 +75,5 @@ def upload():
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         solution , puzzle = cross(file_path)
         print(solution)
-        return rt("user-upload.html", solution = solution)
-    return rt('upload.html', form=form , puzzle = puzzle)
+        return rt("user-upload.html", solution = solution, puzzle = puzzle)
+    return rt('upload.html', form=form )

@@ -20,9 +20,9 @@
           <form class="bg-yellow">
             <table class="box-border border-gray-700 border-2 border-spacing-[0px]">
               <tbody class="border-inherit">
-                {% for i in range(clue_data.dimensions.cols)%}
+                {% for i in range(puzzle.metadata.cols)%}
                 <tr>
-                  {% for j in range(clue_data.dimensions.rows)%}
+                  {% for j in range(puzzle.metadata.rows)%}
     
                   <td id="cell{{j}}-{{i}}"
                     class="cell border-[1px] h-7 w-7 md:w-9 md:h-9 relative bg-transparent border-black">

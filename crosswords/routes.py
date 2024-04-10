@@ -6,7 +6,7 @@ from crosswords.modal import puzzle_data, blocked_cells, open_cells
 from werkzeug.utils import secure_filename
 import os
 from crosswords.crossform import PuzzForm
-from crosswords.crosswordsolver.crosssolve import cross
+# from crosswords.crosswordsolver.crosssolve import cross
 from flask_login import login_required
 
 
@@ -60,21 +60,21 @@ def crossword():
 
 
 
-@login_required
-@app.route('/upload', methods=['GET', 'POST'])
-def upload():
-    form = PuzzForm()
+# @login_required
+# @app.route('/upload', methods=['GET', 'POST'])
+# def upload():
+#     form = PuzzForm()
 
-    if form.validate_on_submit():
-        f = form.puzz.data
-        print(f)
-        if f:
-            filename = secure_filename(f.filename)
-            f.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
-        else:
-            return 'Nofile selected'
-        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        solution , puzzle = cross(file_path)
-        print(solution)
-        return rt("user-upload.html", solution = solution, puzzle = puzzle)
-    return rt('upload.html', form=form )
+#     if form.validate_on_submit():
+#         f = form.puzz.data
+#         print(f)
+#         if f:
+#             filename = secure_filename(f.filename)
+#             f.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
+#         else:
+#             return 'Nofile selected'
+#         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+#         solution , puzzle = cross(file_path)
+#         print(solution)
+#         return rt("user-upload.html", solution = solution, puzzle = puzzle)
+#     return rt('upload.html', form=form )
